@@ -782,4 +782,4 @@ Migrating from JUnit 4 to JUnit 5 requires some work depending on how the existi
 - We might have to convert custom runners and rules to extensions.
 - To convert parameterized tests, we might have to do some rework.
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-migration).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-migration).

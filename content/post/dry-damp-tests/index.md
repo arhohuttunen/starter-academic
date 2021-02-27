@@ -341,4 +341,4 @@ DRY and DAMP in tests are not contradictory, but they target two different aspec
 
 A couple of patterns that help with both concerns are test data builders and custom assertions. These patterns remove duplication in construction and verification while providing better readability and expressiveness.
 
-The example code for this article can be found in [GitHub](https://github.com/arhohuttunen/write-better-tests/tree/master/dry-and-damp).
+The example code for this article can be found in [GitHub](https://github.com/arhohuttunen/write-better-tests/tree/main/dry-and-damp).

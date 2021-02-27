@@ -339,4 +339,4 @@ class RepeatableAnnotationTest
 
 Most of the JUnit 5 features work perfectly well in Kotlin, although there are some cases where the syntax is somewhat different than in Java. However, due to the way Kotlin language works, we can often make the code more readable.
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-gradle-kotlin).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-gradle-kotlin).

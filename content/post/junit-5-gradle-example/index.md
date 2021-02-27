@@ -102,4 +102,4 @@ There we go! JUnit Gradle plugin is now running our tests.
 
 In this JUnit 5 Gradle example we have learned how to add the required dependency for writing JUnit 5 tests and how to configure JUnit Gradle plugin to be able to run the tests.
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-gradle).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-gradle).

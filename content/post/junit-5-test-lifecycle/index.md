@@ -342,4 +342,4 @@ Furthermore, we can change test instances to be created once per test class by a
 
 Finally, when registering multiple extensions, JUnit 5 guarantees wrapping behavior for their lifecycle callbacks.
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-lifecyle).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-lifecyle).

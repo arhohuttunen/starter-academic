@@ -131,4 +131,4 @@ BUILD SUCCESSFUL in 0s
 
 In this JUnit 5 getting started example we have learned how to write and run a simple JUnit 5 test.
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-starter).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-starter).

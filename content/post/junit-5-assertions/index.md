@@ -559,4 +559,4 @@ JUnit 5 assertions make it easier to verify that the expected test results match
 - Using the `assertAll()` method groups all assertions, executes them, and reports failures together.
 - For more complex assertions, the JUnit 5 documentation recommends using third-party assertion libraries, such as Hamcrest, AssertJ or Truth.
 
-The example code for this guide can be found in [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-assertions).
+The example code for this guide can be found in [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-assertions).

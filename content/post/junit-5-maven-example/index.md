@@ -163,4 +163,4 @@ In this JUnit 5 Maven example we have learned how to add the required dependency
 The example code for this guide can be found on [GitHub][2].
 
 [1]:	/junit-5-tutorial
-[2]:	https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-maven
+[2]:	https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-maven

@@ -65,4 +65,4 @@ void notEnoughFundsWithMessage() {
 
 JUnit 5 makes it easy to assert that an expected exception is thrown with the `assertThrows()` method. Moreover, we can capture the thrown exception to check for further information like the error message.
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-expected-exception).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-expected-exception).

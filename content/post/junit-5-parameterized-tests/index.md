@@ -493,4 +493,4 @@ They make it possible to execute the same test several times using different inp
 - You can write your custom argument conversions with `ArgumentConverter`
 - To customize arguments aggregation you can use `ArgumentsAggregator`
   
-The example code for this guide can be found in [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-parameterized-tests).
+The example code for this guide can be found in [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-parameterized-tests).

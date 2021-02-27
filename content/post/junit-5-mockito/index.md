@@ -272,4 +272,4 @@ Mocks can be created and initialized by:
 - Annotating them with the `@Mock` annotation, and initializing by calling the `MockitoAnnotations.openMocks()` method
 - Annotating them with the `@Mock` annotation, and applying the `MockitoExtension` extension to the test class
 
-The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/master/junit5-mockito).
+The example code for this guide can be found on [GitHub](https://github.com/arhohuttunen/junit5-examples/tree/main/junit5-mockito).
