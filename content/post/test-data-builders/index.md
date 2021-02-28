@@ -129,10 +129,10 @@ For classes that require complex setup we can create a test data builder. The bu
 
 ```java
 public class OrderBuilder {
-    private Long orderId = 1L;
-    private Customer customer = new CustomerBuilder().build();
+    private Long orderId;
+    private Customer customer;
     private List<OrderItem> orderItems = new ArrayList<>();
-    private Double discountRate = 0.0;
+    private Double discountRate;
     private String couponCode;
 
     public OrderBuilder withId(Long orderId) {
@@ -228,11 +228,6 @@ public class OrderBuilder {
         return this;
     }
     
-    public OrderBuilder withOrderItem(OrderItemBuilder orderItemBuilder) {
-        this.orderItems.add(orderItemBuilder.build());
-        return this;
-    }
-
     // ...
 }
 ```
@@ -245,11 +240,6 @@ public class OrderBuilder {
 
     public OrderBuilder with(CustomerBuilder customerBuilder) {
         this.customer = customerBuilder.build();
-        return this;
-    }
-    
-    public OrderBuilder with(OrderItemBuilder orderItemBuilder) {
-        this.orderItems.add(orderItemBuilder.build());
         return this;
     }
 
@@ -278,6 +268,40 @@ class BuilderTest {
     }
 }
 ```
+
+### Setting Safe Default Values
+
+If our classes expect some values to exist, our test code has to provide these values. However, a lot of times, these values might not be relevant to the test case. We want to **hide the details that are irrelevant to the test**.
+
+Let's change the way we build the dependent objects.
+
+```java
+public class OrderBuilder {
+
+    private Long orderId = 1L;
+    private CustomerBuilder customerBuilder = new CustomerBuilder();
+    private List<OrderItem> orderItems = new ArrayList<>();
+    private Double discountRate = 0.0;
+    private String couponCode;
+
+    // ...
+    
+    public OrderBuilder with(CustomerBuilder customerBuilder) {
+        this.customerBuilder = customerBuilder;
+        return this;
+    }
+    
+    // ...
+
+    public Order build() {
+        Order order = new Order(orderId, customerBuilder.build(), discountRate, couponCode);
+        orderItems.forEach(order::addOrderItem);
+        return order;
+    }
+}
+```
+
+By setting a default value to the `customerBuilder` field and any other fields, we provide safe values for these fields. This way, we can omit any fields that are not relevant to our test but require a value.
 
 ### Builder Factory Methods
 
