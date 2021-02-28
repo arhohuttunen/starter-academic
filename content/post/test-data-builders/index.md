@@ -1,6 +1,6 @@
 ---
 title: How to Create a Test Data Builder
-subtitle: Remove duplication and increase expressiveness
+subtitle: Remove duplication and increase expressiveness in test data construction
 date: 2021-02-27
 author: Arho Huttunen
 summary: Learn how to use the test data builder pattern to make it easy to create objects for tests. Learn how to reduce boilerplate code with Lombok. 
