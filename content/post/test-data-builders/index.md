@@ -418,7 +418,7 @@ public class OrderBuilder {
     
     private OrderBuilder(OrderBuilder copy) {
         this.orderId = copy.orderId;
-        this.customer = copy.customer;
+        this.customerBuilder = copy.customerBuilder;
         this.orderItems = copy.orderItems;
         this.discountRate = copy.discountRate;
         this.giftVoucher = copy.giftVoucher;
