@@ -63,21 +63,21 @@ public class Customer {
 In this example, we use constructors and immutable objects, so they do not have setter methods. The test code becomes quite hard to read.
 
 ```java
-@Test
-void constructOrder() {
-    Address address = new Address("1216  Clinton Street", "Philadelphia", "19108", "Some country");
-    Customer customer = new Customer(1L, "Unimportant", address);
-    OrderItem coffeeMug = new OrderItem("Coffee mug", 1);
-    OrderItem teaCup = new OrderItem("Tea cup", 1);
-    Order orderWithDiscount = new Order(1L, customer, 0.1, null);
-    orderWithDiscount.addOrderItem(coffeeMug);
-    orderWithDiscount.addOrderItem(teaCup);
-    Order orderWithCouponCode = new Order(1L, customer, 0.0, "HALFOFF");
-    orderWithCouponCode.addOrderItem(coffeeMug);
-    orderWithCouponCode.addOrderItem(teaCup);
-    
-    // ...
-}
+    @Test
+    void constructOrder() {
+        Address address = new Address("1216  Clinton Street", "Philadelphia", "19108", "Some country");
+        Customer customer = new Customer(1L, "Unimportant", address);
+        OrderItem coffeeMug = new OrderItem("Coffee mug", 1);
+        OrderItem teaCup = new OrderItem("Tea cup", 1);
+        Order orderWithDiscount = new Order(1L, customer, 0.1, null);
+        orderWithDiscount.addOrderItem(coffeeMug);
+        orderWithDiscount.addOrderItem(teaCup);
+        Order orderWithCouponCode = new Order(1L, customer, 0.0, "HALFOFF");
+        orderWithCouponCode.addOrderItem(coffeeMug);
+        orderWithCouponCode.addOrderItem(teaCup);
+        
+        // ...
+    }
 ```
 
 The code is full of **details that are irrelevant to the behavior** that we test. We have tried to highlight the unrelated fields by descriptive naming, but the result is very noisy. Also, **tests become brittle** because adding any new parameters will break a lot of tests.
@@ -119,14 +119,17 @@ public class Customers {
 Now we call our factory methods from the test code.
 
 ```java
-    OrderItem coffeeMug = OrderItems.createOrderItem("Coffee Mug");
-    OrderItem teaCup = OrderItems.createOrderItem("Tea cup");
-    Order orderWithDiscount = Orders.createOrderWithDiscount(0.1);
-    orderWithDiscount.addOrderItem(coffeeMug);
-    orderWithDiscount.addOrderItem(teaCup);
-    Order orderWithCouponCode = Orders.createOrderWithCouponCode("HALFOFF");
-    orderWithCouponCode.addOrderItem(coffeeMug);
-    orderWithCouponCode.addOrderItem(teaCup);
+    @Test
+    void constructOrder() {
+        OrderItem coffeeMug = OrderItems.createOrderItem("Coffee Mug");
+        OrderItem teaCup = OrderItems.createOrderItem("Tea cup");
+        Order orderWithDiscount = Orders.createOrderWithDiscount(0.1);
+        orderWithDiscount.addOrderItem(coffeeMug);
+        orderWithDiscount.addOrderItem(teaCup);
+        Order orderWithCouponCode = Orders.createOrderWithCouponCode("HALFOFF");
+        orderWithCouponCode.addOrderItem(coffeeMug);
+        orderWithCouponCode.addOrderItem(teaCup);
+    }
 ```
 
 The object mother pattern **makes tests more readable** and **hides code that creates new objects**. We can provide safe values for fields without having to pollute the test code with those values. It also helps with maintenance because we can **reuse the code between tests**.
@@ -183,33 +186,28 @@ public class OrderBuilder {
 We provide the actual values using public "with" methods which can be chained.
 
 ```java
-class BuilderTest {
-    @Test
-    void buildOrder() {
-        Order order = new OrderBuilder()
-                .withCustomer(new CustomerBuilder()
-                        .withName("Terry Tew")
-                        .withAddress(new AddressBuilder()
-                                .withStreet("1216  Clinton Street")
-                                .withCity("Philadelphia")
-                                .withPostalCode("19108")
-                                .build()
-                        )
-                        .build()
-                )
-                .withOrderItem(new OrderItemBuilder()
-                        .withName("Coffee mug")
-                        .withQuantity(1)
-                        .build()
-                )
-                .withOrderItem(new OrderItemBuilder()
-                        .withName("Tea cup")
-                        .withQuantity(1)
-                        .build()
-                )
-                .build();
-    }
-}
+    Order order = new OrderBuilder()
+            .withCustomer(new CustomerBuilder()
+                    .withName("Terry Tew")
+                    .withAddress(new AddressBuilder()
+                            .withStreet("1216  Clinton Street")
+                            .withCity("Philadelphia")
+                            .withPostalCode("19108")
+                            .build()
+                    )
+                    .build()
+            )
+            .withOrderItem(new OrderItemBuilder()
+                    .withName("Coffee mug")
+                    .withQuantity(1)
+                    .build()
+            )
+            .withOrderItem(new OrderItemBuilder()
+                    .withName("Tea cup")
+                    .withQuantity(1)
+                    .build()
+            )
+            .build();
 ```
 
 Test data builders offer several benefits over constructing objects by hand:
@@ -279,23 +277,18 @@ public class OrderBuilder {
 Now using the builder becomes less verbose. 
 
 ```java
-class BuilderTest {
-    @Test
-    void buildOrder() {
-        Order order = new OrderBuilder()
-                .with(new CustomerBuilder()
-                        .withName("Terry Tew")
-                        .with(new AddressBuilder()
-                                .withStreet("1216  Clinton Street")
-                                .withCity("Philadelphia")
-                                .withPostalCode("19108")
-                        )
-                )
-                .with(new OrderItemBuilder().withName("Coffee mug").withQuantity(1))
-                .with(new OrderItemBuilder().withName("Tea cup").withQuantity(1))
-                .build();
-    }
-}
+    Order order = new OrderBuilder()
+            .with(new CustomerBuilder()
+                    .withName("Terry Tew")
+                    .with(new AddressBuilder()
+                            .withStreet("1216  Clinton Street")
+                            .withCity("Philadelphia")
+                            .withPostalCode("19108")
+                    )
+            )
+            .with(new OrderItemBuilder().withName("Coffee mug").withQuantity(1))
+            .with(new OrderItemBuilder().withName("Tea cup").withQuantity(1))
+            .build();
 ```
 
 ### Setting Safe Default Values
@@ -353,7 +346,6 @@ public class OrderBuilder {
 By using static imports we can avoid mentioning the word "builder" in the tests.
 
 ```java
-class BuilderTest {
     @Test
     void buildOrder() {
         Order order = anOrder()
@@ -369,7 +361,6 @@ class BuilderTest {
                 .with(anOrderItem().withName("Tea cup").withQuantity(1))
                 .build();
     }
-}
 ```
 
 The factory methods hide a lot of details about the builders. The code is now more descriptive as it speaks in domain terms.
@@ -381,33 +372,27 @@ If we need to create similar objects, we could use different builders for them. 
 Let's take a look at the following example.
 
 ```java
-    @Test
-    void buildSimilarOrders() {
-        Order orderWithSmallDiscount = anOrder()
-                .with(anOrderItem().withName("Coffee mug").withQuantity(1))
-                .with(anOrderItem().withName("Tea cup").withQuantity(1))
-                .withDiscountRate(0.1)
-                .build();
-        Order orderWithBigDiscount = anOrder()
-                .with(anOrderItem().withName("Coffee mug").withQuantity(1))
-                .with(anOrderItem().withName("Tea cup").withQuantity(1))
-                .withDiscountRate(0.5)
-                .build();
-    }
+    Order orderWithSmallDiscount = anOrder()
+            .with(anOrderItem().withName("Coffee mug").withQuantity(1))
+            .with(anOrderItem().withName("Tea cup").withQuantity(1))
+            .withDiscountRate(0.1)
+            .build();
+    Order orderWithBigDiscount = anOrder()
+            .with(anOrderItem().withName("Coffee mug").withQuantity(1))
+            .with(anOrderItem().withName("Tea cup").withQuantity(1))
+            .withDiscountRate(0.5)
+            .build();
 ```
 
 Because of the repetition in the construction, the difference with the discount rate gets hidden in the noise. We can **extract a builder with a joint state** and then provide the differing values for each object separately. 
 
 ```java
-    @Test
-    void buildSimilarOrders() {
-        OrderBuilder coffeeMugAndTeaCup = anOrder()
-                .with(anOrderItem().withName("Coffee mug").withQuantity(1))
-                .with(anOrderItem().withName("Tea cup").withQuantity(1));
+    OrderBuilder coffeeMugAndTeaCup = anOrder()
+            .with(anOrderItem().withName("Coffee mug").withQuantity(1))
+            .with(anOrderItem().withName("Tea cup").withQuantity(1));
 
-        Order orderWithSmallDiscount = coffeeMugAndTeaCup.withDiscountRate(0.1).build();
-        Order orderWithBigDiscount = coffeeMugAndTeaCup.withDiscountRate(0.5).build();
-    }
+    Order orderWithSmallDiscount = coffeeMugAndTeaCup.withDiscountRate(0.1).build();
+    Order orderWithBigDiscount = coffeeMugAndTeaCup.withDiscountRate(0.5).build();
 ```
 
 By reusing the common parts and naming the variables descriptively, the differences become much more apparent.
@@ -415,15 +400,12 @@ By reusing the common parts and naming the variables descriptively, the differen
 There is one pitfall in this approach, though. Let's take a look at another example.
 
 ```java
-    @Test
-    void buildSimilarOrders() {
-        OrderBuilder coffeeMugAndTeaCup = anOrder()
-                .with(anOrderItem().withName("Coffee mug").withQuantity(1))
-                .with(anOrderItem().withName("Tea cup").withQuantity(1));
+    OrderBuilder coffeeMugAndTeaCup = anOrder()
+            .with(anOrderItem().withName("Coffee mug").withQuantity(1))
+            .with(anOrderItem().withName("Tea cup").withQuantity(1));
 
-        Order orderWithDiscount = coffeeMugAndTeaCup.withDiscountRate(0.1).build();
-        Order orderWithCouponCode = coffeeMugAndTeaCup.withCouponCode("HALFOFF").build();
-    }
+    Order orderWithDiscount = coffeeMugAndTeaCup.withDiscountRate(0.1).build();
+    Order orderWithCouponCode = coffeeMugAndTeaCup.withCouponCode("HALFOFF").build();
 ```
 
 We would expect that only the first order has the discount rate applied. However, since calling the builder methods affects the builder's state, the second order will have a discount rate applied as well! 
@@ -453,15 +435,12 @@ public class OrderBuilder {
 Now we can make sure that the changes from previous uses do not leak to the next one.
 
 ```java
-  @Test
-  void buildSimilarOrders() {
-      OrderBuilder coffeeMugAndTeaCup = anOrder()
-              .with(anOrderItem().withName("Coffee mug").withQuantity(1))
-              .with(anOrderItem().withName("Tea cup").withQuantity(1));
-
-      Order orderWithDiscount = coffeeMugAndTeaCup.but().withDiscountRate(0.1).build();
-      Order orderWithCouponCode = coffeeMugAndTeaCup.but().withCouponCode("HALFOFF").build();
-  }
+    OrderBuilder coffeeMugAndTeaCup = anOrder()
+            .with(anOrderItem().withName("Coffee mug").withQuantity(1))
+            .with(anOrderItem().withName("Tea cup").withQuantity(1));
+  
+    Order orderWithDiscount = coffeeMugAndTeaCup.but().withDiscountRate(0.1).build();
+    Order orderWithCouponCode = coffeeMugAndTeaCup.but().withCouponCode("HALFOFF").build();
 ```
 
 There is still room for human error, so if we want to be safe, we could make the "with" methods always return a copy of the builder.
