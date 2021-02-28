@@ -513,8 +513,8 @@ Now our builder looks a lot more like the custom builder.
 
 ```java
     Order order = anOrder()
-            .withOrderItem(anOrderItem().name("Coffee mug").quantity(1).build())
-            .withOrderItem(anOrderItem().name("Tea cup").quantity(1).build())
+            .withOrderItem(anOrderItem().withName("Coffee mug").withQuantity(1).build())
+            .withOrderItem(anOrderItem().withName("Tea cup").withQuantity(1).build())
             .build();
 ```
 
