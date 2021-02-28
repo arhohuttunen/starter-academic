@@ -259,35 +259,20 @@ public class OrderBuilder {
 }
 ```
 
-We are still duplicating the name of the constructed type in both the "with" methods and the builder names. We can take advantage of the type system and shorten the names of the "with" methods.
-
-```java
-public class OrderBuilder {
-    // ...
-
-    public OrderBuilder with(CustomerBuilder customerBuilder) {
-        this.customer = customerBuilder.build();
-        return this;
-    }
-
-    // ...
-}
-```
-
 Now using the builder becomes less verbose. 
 
 ```java
     Order order = new OrderBuilder()
-            .with(new CustomerBuilder()
+            .witCustomer(new CustomerBuilder()
                     .withName("Terry Tew")
-                    .with(new AddressBuilder()
+                    .withAddress(new AddressBuilder()
                             .withStreet("1216  Clinton Street")
                             .withCity("Philadelphia")
                             .withPostalCode("19108")
                     )
             )
-            .with(new OrderItemBuilder().withName("Coffee mug").withQuantity(1))
-            .with(new OrderItemBuilder().withName("Tea cup").withQuantity(1))
+            .withOrderItem(new OrderItemBuilder().withName("Coffee mug").withQuantity(1))
+            .withOrderItem(new OrderItemBuilder().withName("Tea cup").withQuantity(1))
             .build();
 ```
 
@@ -308,7 +293,7 @@ public class OrderBuilder {
 
     // ...
     
-    public OrderBuilder with(CustomerBuilder customerBuilder) {
+    public OrderBuilder withCustomer(CustomerBuilder customerBuilder) {
         this.customerBuilder = customerBuilder;
         return this;
     }
@@ -337,6 +322,21 @@ public class OrderBuilder {
 
     public static OrderBuilder anOrder() {
         return new OrderBuilder();
+    }
+
+    // ...
+}
+```
+
+We are still duplicating the name of the constructed type in both the "with" methods and the builder names. We can take advantage of the type system and shorten the names of the "with" methods.
+
+```java
+public class OrderBuilder {
+    // ...
+
+    public OrderBuilder with(CustomerBuilder customerBuilder) {
+        this.customer = customerBuilder.build();
+        return this;
     }
 
     // ...
