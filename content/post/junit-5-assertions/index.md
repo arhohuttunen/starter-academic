@@ -92,7 +92,7 @@ While we sometimes might need to assert `null` values, we should generally avoid
 {{% callout note %}}
 **Additional reading:**
 
-[Avoiding Unnecessary Null Checks](/avoiding-unnecessary-null-checks/)
+:pencil2: [Avoiding Unnecessary Null Checks](/avoiding-unnecessary-null-checks/)
 {{% /callout %}}
 
 ### Iterables
@@ -218,7 +218,7 @@ The assertion fails because of this.
 {{% callout note %}}
 **Additional reading:**
 
-[Java hashCode() and equals()](https://howtodoinjava.com/java/basics/java-hashcode-equals-methods/)
+:bookmark: [Java hashCode() and equals()](https://howtodoinjava.com/java/basics/java-hashcode-equals-methods/)
 {{% /callout %}}
 
 To solve this problem, we need to add our implementation of `equals()` that compares the class fields.

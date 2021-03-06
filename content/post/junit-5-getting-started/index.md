@@ -19,9 +19,9 @@ The accompanying source code example already has configurations for both Maven a
 {{% callout note %}}
 **Additional reading:**
 
-[JUnit 5 Maven Example](/junit-5-maven-example/)
+:pencil2: [JUnit 5 Maven Example](/junit-5-maven-example/)
 
-[JUnit 5 Gradle Example](/junit-5-gradle-example/)
+:pencil2: [JUnit 5 Gradle Example](/junit-5-gradle-example/)
 {{% /callout %}}
 
 

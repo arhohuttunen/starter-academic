@@ -331,7 +331,7 @@ JUnit 5 documentation has more in-depth details about the relative execution ord
 
 **Additional reading:**
 
-[JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order)
+:bookmark: [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order)
 {{% /callout %}}
 
 ## Summary

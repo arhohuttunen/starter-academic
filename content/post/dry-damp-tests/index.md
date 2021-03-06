@@ -269,7 +269,7 @@ You could say that this is much more descriptive than the original version. By m
 {{% callout note %}}
 Additional reading:
 
-- [How to Create a Test Data Builder](/test-data-builders/)
+:pencil2: [How to Create a Test Data Builder](/test-data-builders/)
 {{% /callout %}}
 
 
