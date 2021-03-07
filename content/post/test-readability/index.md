@@ -494,12 +494,15 @@ It's much more obvious what the expected value 200 and actual value 100 are. The
 
 ## :white_check_mark: Summary
 
-Test readability is the sum of various activities:
+Test readability has a big impact on the maintainability of the tests. There are a few good practices that make tests easier to read.
 
-- Testing behaviour, not the implementation
-- Using standard structure to easily find the behaviour and the expectations 
-- Naming literals and variables to describe intent
-- Using patterns like the Test Data Builder to provide just enough information
+We should always **test behaviour, and not the implementation**. Naming tests accordingly documents the behaviour.
+
+We should **use standard structure** to easily find the behaviour and the expectations. 
+
+Test should **provide just enough information** to understand them. Too much or too little information can make test obscure.
+
+Revealing intent by self-describing names makes the code more understandable. It's good to **focus on what behaviour is being tested, not how it's tested**.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/write-better-tests/tree/main/test-readability).
 
