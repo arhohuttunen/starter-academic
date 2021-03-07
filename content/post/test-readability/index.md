@@ -40,11 +40,11 @@ void testWithdrawFailure() {
 }
 ```
 
-When we name tests like this, we are stating the obvious with the test name. We are duplicating the information we could get just by looking at what we are testing.
+When we name tests like this, we are **stating the obvious** with the test name. We are duplicating the information we could get just by looking at what we are testing.
 
 We don't really care if we have to call a `deposit()` or a `withdraw()` method. What we really need to know is what happens in different situations.
 
-We can do better if we write the test names in terms of behaviour. Each test name reads like a sentence, with the tested class as the subject. We can also use the `@DisplayName` annotation in JUnit 5 to create human-readable display names.
+We can do better if we write the **test names in terms of behaviour**. Each test name reads like a sentence, with the tested class as the subject. We can also use the `@DisplayName` annotation in JUnit 5 to create human-readable display names.
 
 ```java
 @Test
@@ -81,7 +81,7 @@ Each test can be structured in parts to make what we are testing obvious. One co
 2. _Act:_ execute the target code, triggering the tested behaviour
 3. _Assert:_ check expectations about the behaviour
 
-When we use a standard form in our tests, they are easier to understand. We can quickly find the expectations and how it's related to the behaviour that we want to test.
+When we use a standard form in our tests, they are **easier to understand**. We can quickly **find the expectations** and how it's **related to the behaviour** that we want to test.
 
 Let's take a look at an example where there is no structure.
 
@@ -116,7 +116,7 @@ void purchaseSucceedsWhenEnoughInventory() {
 }
 ```
 
-The change is not big, but the result is immediately much more readable.
+The change is not big, but the result is immediately much more readable. It is quite clear what part is doing the setup, what is triggering the behaviour, and what is verifying the expectations.
 
 ### When Common Sense Outweigh Rules
 
@@ -148,11 +148,82 @@ void returnFullNameOfUser() {
 
 With longer pieces of code it can definitely help to follow the patterns, but in simple cases like this it's quite unnecessary.
 
-## :speech_balloon: Describe Intent With Literal and Variable Names
+## :speech_balloon: Reveal Intent With Method and Variable Names
 
-## :writing_hand: Only Essential and Relevant Information
+## :writing_hand: Provide Just Enough Information
 
-Essential but irrelevant:
+Tests can have either **too much or too little information**. Both cases affect how well we understand what behaviour a test verifies.
+
+One cause for too much information is that we just put all the details inline in the test. When there is too much information, **it is hard to understand what is relevant to the test**.
+
+On the other hand, too little information makes the test obscure because we **cannot see the cause and effect relationship**. Having too little information is usually the result of attempting to remove duplication in the code.
+
+### Verify Only What You Need
+
+Sometimes we see people adding a lot of test conditions into a single test case. This can happen in an attempt to reduce setup overhead, or adding "just one more little thing" in the test. 
+
+```java
+@Test
+void purchaseProducts() {
+    // Arrange
+    Product paperclip = new Product("Paperclip");
+    Product printerPaper = new Product("Printer paper");
+    Store store = new Store();
+    store.addInventory(paperclip, 100);
+    store.addInventory(printerPaper, 50);
+    Customer customer = new Customer();
+    // Act
+    boolean purchaseSucceeded = customer.purchase(store, paperclip, 10);
+    // Assert
+    assertTrue(purchaseSucceeded);
+    assertEquals(90, store.getInventory(paperclip));
+    // Act
+    purchaseSucceeded = customer.purchase(store, printerPaper, 100);
+    // Assert
+    assertFalse(purchaseSucceeded);
+    assertEquals(50, store.getInventory(printerPaper));
+}
+```
+
+The problem of such approach is that it is **verifying too much functionality**. The code isn't very readable because it's hard to see what preconditions are related to what behaviour.
+
+Also, if the test fails, there are **many reasons for the test to fail**. It will be harder to pinpoint the cause of the error.
+
+It's better to try to **assert only one condition per test**.
+
+```java
+@Test
+void purchaseSucceedsWhenEnoughInventory() {
+    Product paperclip = new Product("Paperclip");
+    Store store = aStore().withInventory(paperclip, 100).build();
+    Customer customer = new Customer();
+
+    boolean purchaseSucceeded = customer.purchase(store, paperclip, 10);
+
+    assertTrue(purchaseSucceeded);
+}
+
+@Test
+void inventoryIsRemovedOnPurchase() {
+    // ...
+}
+
+@Test
+void purchaseFailsWhenNotEnoughInventory() {
+    // ...
+}
+
+@Test
+void inventoryIsNotRemovedOnFailedPurchase() {
+    // ...
+}
+```
+
+One condition per test will make the test **more readable**. It will also help with defect localization, as it's now easier to **pinpoint the cause of the error**.
+
+### Hide Irrelevant Data
+
+Sometimes to be able to test a behaviour we have to construct objects that require certain data to be present. However, this data may be irrelevant for testing the behaviour. This is called the Irrelevant Data test smell.
 
 ```java
 void newPersonIsUnverified() {
@@ -161,7 +232,7 @@ void newPersonIsUnverified() {
 }
 ```
 
-The information may be essential for the construction of a person object, but it is irrelevant to our assertion. We could extract the unnecessary information to a factory method.
+The example is overly simple, but it showcases the issue. The information may be essential for the construction of a person object, but it is irrelevant to our assertion. We could extract the unnecessary information to a factory method.
 
 ```java
 @Test
@@ -173,7 +244,9 @@ void newPersonIsUnverified() {
 
 Now the essential setup is hidden in the factory method. The only relevant information to the test is that a new person has been created.
 
-So what happens if we have more tests with a similar setup?
+### Don't Hide Cause From Effect
+
+So what happens if we have more tests with a similar setup? In the following example only part of the data is relevant to the test.
 
 ```java
 @Test
@@ -207,7 +280,9 @@ void returnFullNameOfUser() {
 }
 ```
 
-However, now the setup won't have all the relevant information. It is unclear why the person is underage, or why the person has the name mentioned in the test.
+However, now the setup won't have all the relevant information. It is unclear why the person is underage, or why the person has the name mentioned in the test. This is called the Mystery Guest test smell.
+
+### Provide Essential But Only Show Relevant Data
 
 Luckily, it is possible to both provide the essential information and keep the information relevant to the test. We can do that if we create a test data builder.
 
@@ -228,12 +303,27 @@ void returnFullNameOfUser() {
 
 Neither of the tests now have any irrelevant information. The essential information for the construction of the object has been hidden inside the test data builder.
 
+Using this pattern helps with both removing duplication and keeping the data relevant to the tested behaviour.
+
 {{% callout note %}}
 **Additional reading:**
 
-:pencil2: [DRY and DAMP in Tests](/dry-damp-tests/)
+:pencil2: [DRY and DAMP in Tests](/dry-damp-test/)
 
 :pencil2: [How to Create a Test Data Builder](/test-data-builders/)
 
 :book: [xUnit Test Patterns: Refactoring Test Code](https://amzn.to/30fANr0) by Gerard Meszaros
+
+:book: [Growing Object-Oriented Software, Guided by Tests](https://amzn.to/2O0hHTm) by Steve Freeman, Nat Pryce
 {{% /callout %}}
+
+## Summary
+
+Test readability is the sum of various activities:
+
+- Testing behaviour, not the implementation
+- Using standard structure to easily find the behaviour and the expectations 
+- Naming literals and variables to describe intent
+- Using patterns like the Test Data Builder to provide just enough information
+
+You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/write-better-tests/tree/main/test-readability).
