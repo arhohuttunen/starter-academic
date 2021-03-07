@@ -8,6 +8,8 @@ categories:
   - Testing
 tags:
   - clean code
+image:
+  focal_point: top
 ---
 
 In this article, we will learn different ways to improve test readability. Being able to understand what a test does, increases the maintainability of the test.
