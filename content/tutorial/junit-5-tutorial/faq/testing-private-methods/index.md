@@ -1,5 +1,7 @@
 ---
 title: How do I test private methods?
+type: book
+toc: false
 date: 2021-02-07
 authors:
   - arhohuttunen
@@ -11,6 +13,12 @@ tags:
 image:
   focal_point: topleft
 ---
+
+{{% callout note %}}
+This article was originally posted as a blog post, but since the question was so frequently asked, I decided to make it part of the tutorial.
+
+This is a controversial topic. However, a lot of experienced developers will reply to this question with similar answers.
+{{% /callout %}}
 
 > What is the best way to test private methods? Should I use some library or use reflection?
 

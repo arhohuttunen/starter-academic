@@ -1,23 +1,22 @@
 ---
 title: "JUnit 5 Maven Example: Running Tests with Surefire"
+type: book
+linktitle: Maven
+url: /junit-5-maven-example
 date: 2018-01-03
 author: Arho Huttunen
+summary: Learn how to get the required dependencies for writing JUnit 5 tests with Maven. Also, learn how to configure the Maven Surefire plugin to run the tests.
 categories:
   - Testing
 tags:
   - JUnit 5
   - Maven
+weight: 20
 ---
 
 In this JUnit 5 Maven example, we will learn how to get the required dependencies for writing JUnit 5 tests with Maven. Also, we will learn how to configure the Maven Surefire plugin to run the tests.
 
-This article is part of the [JUnit 5 Tutorial][1].
-
-## Required dependencies
-
-**Update 18th of June 2018**: Beginning from Maven Surefire 2.22.0 there is now native support for JUnit Jupiter. This means that the configuration is now easier.
-
-**Update 1st of March 2019**: Beginning from JUnit Jupiter 5.4.0 there is now an aggregator artifact `junit-jupiter` that transitively pulls in dependencies on `junit-jupiter-api`, `junit-jupiter-params`, and `junit-jupiter-engine` for simplified dependency management.
+## Required Dependencies
 
 First, to be able to write JUnit 5 tests we need the `junit-jupiter` artifact as a dependency in `pom.xml`:
 
@@ -48,9 +47,11 @@ In addition, to be able to run JUnit 5 tests we have to add the Maven Surefire p
 
 Now we have the most basic setup for writing and running JUnit 5 tests with Maven.
 
-### Configuration prior to Maven Surefire 2.22.0 and JUnit Jupiter 5.4.0
+### Configuration for Older Versions
 
-To be able to write JUnit 5 tests we need the `junit-jupiter-api` artifact as a dependency:
+Beginning from JUnit Jupiter 5.4.0 there is now an aggregator artifact `junit-jupiter` that transitively pulls in dependencies on `junit-jupiter-api`, `junit-jupiter-params`, and `junit-jupiter-engine` for simplified dependency management.
+
+To be able to write JUnit 5 tests using an older version we need the `junit-jupiter-api` artifact as a dependency:
 
 ```xml
 <dependencies>
@@ -63,7 +64,7 @@ To be able to write JUnit 5 tests we need the `junit-jupiter-api` artifact as a 
 </dependencies>
 ```
 
-In addition, when using Maven Surefire 2.21.0 or older, we have to use a provider for Maven Surefire plugin to run the tests:
+Beginning from Maven Surefire 2.22.0 there is now native support for JUnit Jupiter. When using Maven Surefire 2.21.0 or older, we have to use a provider for Maven Surefire plugin to run the tests:
 
 ```xml
 <build>

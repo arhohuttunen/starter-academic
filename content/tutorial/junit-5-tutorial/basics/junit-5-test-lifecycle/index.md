@@ -1,5 +1,8 @@
 ---
 title: "JUnit 5 Test Lifecycle: Before and After Annotations"
+type: book
+linktitle: "Test Lifecycle"
+url: /junit-5-test-lifecycle
 date: 2020-03-15
 author: Arho Huttunen
 summary: Learn how to run code before and after each test or all tests in the test class. Also learn the execution order of lifecycle methods in different cases.
@@ -7,11 +10,10 @@ categories:
   - Testing
 tags:
   - JUnit 5
+weight: 40
 ---
 
 In this article, we will learn how to run code before and after each test or all tests in the test class. We will also see what is the execution order when using nested tests or extensions.
-
-This article is part of the [JUnit 5 Tutorial](/junit-5-tutorial).
 
 ## Lifecycle Methods
 

@@ -1,24 +1,23 @@
 ---
 title: JUnit 5 Gradle Example
 subtitle: Running Tests with Gradle
+type: book
+linktitle: Gradle
+url: /junit-5-gradle-example
 date: 2018-01-01
 author: Arho Huttunen
+summary: Learn how to get the required dependencies for writing JUnit 5 tests with Gradle. Also, learn how to configure the JUnit Gradle plugin to run the tests.
 categories:
   - Testing
 tags:
   - JUnit 5
   - Gradle
+weight: 21
 ---
 
 In this JUnit 5 Gradle example, we will learn how to get the required dependencies for writing JUnit 5 tests with Gradle. Also, we will learn how to configure the JUnit Gradle plugin to run the tests.
 
-This article is part of the [JUnit 5 Tutorial](/junit-5-tutorial).
-
 ## Required dependencies
-
-**Update 18th of June 2018**: Beginning from Gradle 4.6 there is now native support for JUnit Jupiter. This means that the configuration is now easier.
-
-**Update 1st of March 2019**: Beginning from JUnit Jupiter 5.4.0 there is now an aggregator artifact `junit-jupiter` that transitively pulls in dependencies on `junit-jupiter-api`, `junit-jupiter-params`, and `junit-jupiter-engine` for simplified dependency management. This means that we don't need additional dependencies to be able to write parameterized tests.
 
 First, to be able to write JUnit 5 tests we need the `junit-jupiter` artifact as a dependency in `build.gradle`:
 
@@ -38,17 +37,20 @@ test {
 
 Now we have the most basic setup for writing and running JUnit 5 tests with Gradle.
 
-### Configuration prior to Gradle 4.6 and JUnit Jupiter 5.4.0
+### Configuration for Older Versions
 
-To be able to write JUnit 5 tests we need the `junit-jupiter-api` artifact as a dependency:
+Beginning from JUnit Jupiter 5.4.0 there is now an aggregator artifact `junit-jupiter` that transitively pulls in dependencies on `junit-jupiter-api`, `junit-jupiter-params`, and `junit-jupiter-engine` for simplified dependency management. This means that we don't need additional dependencies to be able to write parameterized tests.
+
+To be able to write JUnit 5 tests using an older version we need the `junit-jupiter-api` artifact as a dependency. We also need the JUnit Jupiter test engine in the test runtime classpath:
 
 ```gradle
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")    
 }
 ```
 
-In addition, when using Gradle 4.5 or older, to be able to run JUnit 5 tests we have to configure the JUnit Gradle plugin:
+Beginning from Gradle 4.6 there is now native support for JUnit Jupiter. When using Gradle 4.5 or older, to be able to run JUnit 5 tests we have to configure the JUnit Gradle plugin:
 
 ```gradle
 buildscript {
@@ -62,8 +64,6 @@ buildscript {
 
 apply plugin: 'org.junit.platform.gradle.plugin'
 ```
-
-We also need the JUnit Jupiter test engine in the test runtime classpath like shown before.
 
 Now we have the setup for writing and running JUnit 5 tests with older versions of Gradle.
 
