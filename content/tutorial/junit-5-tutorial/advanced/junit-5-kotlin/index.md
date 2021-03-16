@@ -107,7 +107,7 @@ Compared to Java this is once again a little less verbose and more readable.
 
 ## Parameterized Tests
 
-There are several ways to write [JUnit 5 parameterized tests](/junit-5-parameterized-tests/). Most of these approaches work without any changes in Kotlin as well.
+There are several ways to write JUnit 5 parameterized tests. Most of these approaches work without any changes in Kotlin as well.
 
 With that in mind, there is a difference when using the `@MethodSource` annotation. The annotation expects a static method inside the class as the source of the parameters.
 
@@ -137,6 +137,12 @@ org.junit.platform.commons.JUnitException: Could not find method [squares] in cl
 ```
 
 Using parameterized tests like this is ok but not as convenient as in Java. Another thing to note is that there can be only one companion object per class, so all parameter-providing methods need to be together.
+
+{{% callout note %}}
+**Additional reading:**
+
+:pencil2: [JUnit 5 parameterized tests](/junit-5-parameterized-tests/)
+{{% /callout %}}
 
 ## Dynamic Tests
 
@@ -269,7 +275,7 @@ Adding the annotation will expose the Kotlin property as a Java field, and JUnit
 
 ## Lifecycle Methods
 
-The [JUnit 5 lifecycle methods](/junit-5-test-lifecycle/) all work in Kotlin as well.
+The JUnit 5 lifecycle methods all work in Kotlin as well.
 
 However, the methods annotated with `@BeforeAll` and `@AfterAll` need to be static by default. The reason is that JUnit 5 creates a new test instance per test method, and there is no other way to share state between all tests.
 
@@ -301,6 +307,12 @@ class LifecycleTest {
 ``` 
 
 Since this now shares instance state between tests, you might need to reset state in `@BeforeEach` or `@AfterEach`, if your test methods rely on state stored in instance variables. In general, try to avoid writing tests that depend on such state. 
+
+{{% callout note %}}
+**Additional reading:**
+
+:pencil2: [JUnit 5 Test Lifecycle](/junit-5-test-lifecycle/)
+{{% /callout %}}
 
 ## Repeatable Annotations
 
