@@ -10,10 +10,10 @@ categories:
   - Testing
 tags:
   - JUnit 5
-weight: 40
+weight: 50
 ---
 
-In this article, we will learn how to run code before and after each test or all tests in the test class. We will also see what is the execution order when using nested tests or extensions.
+In this tutorial, we will learn how to run code before and after each test or all tests in the test class. We will also see what is the execution order when using nested tests or extensions.
 
 ## Lifecycle Methods
 
