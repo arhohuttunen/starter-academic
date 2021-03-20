@@ -588,12 +588,6 @@ Since we cannot pass around builders as arguments, the code is still a little **
 
 Overall, if we have a lot of things to construct, the benefit might outweigh the drawback.
 
-{{% callout note %}}
-**Additional reading:**
-
-:book: [Growing Object-Oriented Software, Guided by Tests](https://amzn.to/2O0hHTm) by Steve Freeman, Nat Pryce
-{{% /callout %}}
-
 ## :white_check_mark: Summary
 
 Test data builders help to **hide syntax noise related to creating objects** and make the code easier to read. Test data builders also **make the code more descriptive and the tests less brittle**.
@@ -603,3 +597,9 @@ Passing builders as arguments to other builders allows for making the code more 
 We can also take advantage of the Lombok builders combined with the object mother pattern. While we lose a bit in the compactness, we **reduce a lot of the boilerplate code**.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/write-better-tests/tree/main/test-data-builder).
+
+{{% callout note %}}
+**Additional reading:**
+
+:book: [Growing Object-Oriented Software, Guided by Tests](https://amzn.to/2O0hHTm) by Steve Freeman, Nat Pryce
+{{% /callout %}}
