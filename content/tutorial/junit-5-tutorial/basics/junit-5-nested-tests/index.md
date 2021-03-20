@@ -290,11 +290,16 @@ JUnit 5 nested tests can be a powerful tool when used correctly. Like using any 
 
 If we get an urge to write nested tests, we should ask ourselves why we want to do that. If the test class is growing large and requires more organization, it could tell that the tested class is doing too many things.
 
-Instead of adding more structure to the test, we should consider refactoring multiple responsibilities out of the tested class. Adding nested tests also adds a little more complexity to the tests. We should always try to avoid added complexity.
+We should ask ourselves:
+
+- Could any of these nested classes be their own concern that we should extract out of the tested class?
+- Could any of the assumptions we make with the nested classes indicate that a method under test is doing more than one thing?
+
+Instead of adding more structure to the test, we should consider if there is a need for refactoring. Adding nested tests also adds a little more complexity to the tests. We should always try to avoid added complexity.
 
 ### Trying to Remove Duplication
 
-Many tutorials suggest that we remove duplication by constructing shared objects in a `@BeforeEach` method or define them as class member variables. This advice has good intent but removing duplication from tests has more subtleties than that.
+Many tutorials suggest that we remove duplication by constructing shared objects in a `@BeforeEach` method and defining them as class member variables. This advice has good intent but removing duplication from tests has more subtleties than that.
 
 Let's take a close look at the previous product controller test.
 
@@ -326,7 +331,7 @@ Let's take a close look at the previous product controller test.
         }
 ```
 
-Since there is duplication in the product construction, many tutorials suggest removing that duplication by using a `@BeforeEach` method.
+Since there is duplication in the product construction, many tutorials suggest removing that duplication using a `@BeforeEach` method.
 
 ```java
         @Nested
