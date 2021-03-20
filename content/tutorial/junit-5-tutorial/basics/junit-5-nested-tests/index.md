@@ -282,6 +282,125 @@ ProductControllerTest > Creating a product > when fields are missing > do not cr
 
 Related results are faster to find, and the output benefits from the nesting. If we manage to create a well-thought-out structure, it serves like breadcrumbs for navigating the results.
 
+## Avoiding Pitfalls
+
+JUnit 5 nested tests can be a powerful tool when used correctly. Like using any other tool, using nested tests comes with some pitfalls. 
+
+### Ignoring Code Smells
+
+If we get an urge to write nested tests, we should ask ourselves why we want to do that. If the test class is growing large and requires more organization, it could tell that the tested class is doing too many things.
+
+Instead of adding more structure to the test, we should consider refactoring multiple responsibilities out of the tested class. Adding nested tests also adds a little more complexity to the tests. We should always try to avoid added complexity.
+
+### Trying to Remove Duplication
+
+Many tutorials suggest that we remove duplication by constructing shared objects in a `@BeforeEach` method or define them as class member variables. This advice has good intent but removing duplication from tests has more subtleties than that.
+
+Let's take a close look at the previous product controller test.
+
+```java
+        @Nested
+        @DisplayName("when product is found")
+        class WhenProductIsFound {
+            @Test
+            @DisplayName("return HTTP status OK")
+            void returnHttpStatusOk() throws Exception {
+                Product product = new Product(1L, "Toothbrush", BigDecimal.valueOf(5.0));
+                when(productRepository.findById(1L)).thenReturn(product);
+
+                mockMvc.perform(get("/product/{productId}", 1L))
+                        .andExpect(status().isOk());
+            }
+
+            @Test
+            @DisplayName("return found product as JSON")
+            void returnFoundProductAsJson() throws Exception {
+                Product product = new Product(1L, "Toothbrush", BigDecimal.valueOf(5.0));
+                when(productRepository.findById(1L)).thenReturn(product);
+
+                mockMvc.perform(get("/product/{productId}", 1L))
+                        .andExpect(jsonPath("$.id", is(1)))
+                        .andExpect(jsonPath("$.name", is("Toothbrush")))
+                        .andExpect(jsonPath("$.price", is(5.0)));
+            }
+        }
+```
+
+Since there is duplication in the product construction, many tutorials suggest removing that duplication by using a `@BeforeEach` method.
+
+```java
+        @Nested
+        @DisplayName("when product is found")
+        class WhenProductIsFound {
+            @BeforeEach
+            void productFound() {
+                Product product = new Product(1L, "Toothbrush", BigDecimal.valueOf(5.0));
+                when(productRepository.findById(1L)).thenReturn(product);
+            }
+
+            @Test
+            @DisplayName("return HTTP status OK")
+            void returnHttpStatusOk() throws Exception {
+                mockMvc.perform(get("/product/{productId}", 1L))
+                        .andExpect(status().isOk());
+            }
+
+            @Test
+            @DisplayName("return found product as JSON")
+            void returnFoundProductAsJson() throws Exception {
+                mockMvc.perform(get("/product/{productId}", 1L))
+                        .andExpect(jsonPath("$.id", is(1)))
+                        .andExpect(jsonPath("$.name", is("Toothbrush")))
+                        .andExpect(jsonPath("$.price", is(5.0)));
+            }
+        }
+```
+
+Unfortunately, the test is now not self-contained. We cannot see at one glance all the relevant things to the test. There are better ways to remove duplication, such as helper methods, test data builders, or object mothers.
+
+If we examine the example a little closer, the first test does not care about the field values. However, for the second test, the field values are relevant information.
+
+Let's look at how the test looks if we apply the builder pattern and a helper method. 
+
+```java
+        @Nested
+        @DisplayName("when product is found")
+        class WhenProductIsFound {
+            @Test
+            @DisplayName("return HTTP status OK")
+            void returnHttpStatusOk() throws Exception {
+                havingPersisted(aProduct().withId(1L));
+                
+                mockMvc.perform(get("/product/{productId}", 1L))
+                        .andExpect(status().isOk());
+            }
+
+            @Test
+            @DisplayName("return found product as JSON")
+            void returnFoundProductAsJson() throws Exception {
+                havingPersisted(aProduct().withId(1L).withName("Toothbrush").withPrice(5.0));
+                
+                mockMvc.perform(get("/product/{productId}", 1L))
+                        .andExpect(jsonPath("$.id", is(1)))
+                        .andExpect(jsonPath("$.name", is("Toothbrush")))
+                        .andExpect(jsonPath("$.price", is(5.0)));
+            }
+        }
+```
+
+We can immediately see that each test only has relevant information. We can also tell what the test does at one glance.
+
+Readability and removing duplication is a broad subject, and we are not going to cover everything here. We will leave the in-depth analysis of readability and maintainability to other articles.
+
+{{% callout note %}}
+**Additional reading:**
+
+:pencil2: [DRY and DAMP in Tests](/dry-damp-tests/)
+
+:pencil2: [How to Make Your Tests Readable](/test-readability/)
+{{% /callout %}}
+
+
 ## Summary
 
 We can add a hierarchical structure to tests by using nested tests. We can add a nested test by creating an inner class and annotating it with the `@Nested` annotation.
