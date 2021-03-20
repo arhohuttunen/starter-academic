@@ -421,7 +421,7 @@ public class OrderBuilder {
         this.customerBuilder = copy.customerBuilder;
         this.orderItems = copy.orderItems;
         this.discountRate = copy.discountRate;
-        this.giftVoucher = copy.giftVoucher;
+        this.couponCode = copy.couponCode;
     }
 
     public OrderBuilder but() {
