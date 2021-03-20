@@ -63,8 +63,13 @@ import org.junit.jupiter.api.Test;
 class CalculatorTest {
     @Test
     void addNumbers() {
-        Calculator calculator = new Calculator();
+        // Arrange
+        Calculator calculator = new Calculator(); <strong>x</strong>
+        
+        // Act
         int sum = calculator.add(1, 2);
+        
+        // Asset
         Assertions.assertEquals(3, sum);
     }
 }
