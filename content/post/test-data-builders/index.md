@@ -28,7 +28,7 @@ We might want to test a lot of business logic around these objects:
 2. Check that the quantity of items does not exceed the inventory balance
 3. Check that we apply different shipping rate on a foreign address
 
-For different use cases, we have to create objects in another state. In our production code, we create things in relatively few places. However, in tests, we have to provide all the constructor arguments every time creating an object.
+For different use cases, we have to create objects in different state. In our production code, we create things in relatively few places. However, in tests, we have to provide all the constructor arguments every time creating an object.
 
 Let's take a look at a code example.
 
@@ -64,23 +64,17 @@ In this example, we use constructors and immutable objects, so they do not have 
 
 ```java
     @Test
-    void constructOrder() {
-        Address address = new Address("1216  Clinton Street", "Philadelphia", "19108", "Some country");
-        Customer customer = new Customer(1L, "Unimportant", address);
-        OrderItem coffeeMug = new OrderItem("Coffee mug", 1);
-        OrderItem teaCup = new OrderItem("Tea cup", 1);
-        Order orderWithDiscount = new Order(1L, customer, 0.1, null);
-        orderWithDiscount.addOrderItem(coffeeMug);
-        orderWithDiscount.addOrderItem(teaCup);
-        Order orderWithCouponCode = new Order(1L, customer, 0.0, "HALFOFF");
-        orderWithCouponCode.addOrderItem(coffeeMug);
-        orderWithCouponCode.addOrderItem(teaCup);
+    void constructOrderWithForeignAddress() {
+        Address address = new Address("1216  Clinton Street", "Philadelphia", "19108", "United States");
+        Customer customer = new Customer(1L, "Terry Tew", address);
+        Order order = new Order(1L, customer, 0.0, null);
+        order.addOrderItem(new OrderItem("Coffee mug", 1));
         
         // ...
     }
 ```
 
-The code is full of **details that are irrelevant to the behavior** that we test. We have tried to highlight the unrelated fields by descriptive naming, but the result is very noisy. Also, **tests become brittle** because adding any new parameters will break a lot of tests.
+The code is full of **details that are irrelevant to the behavior** that we test. The result is very noisy. Also, **tests become brittle** because adding any new parameters will break a lot of tests.
 
 ## :older_woman: Reduce Duplication With the Object Mother Pattern
 
@@ -93,23 +87,17 @@ public class Orders {
     public static Order createOrderWithCustomer(Customer customer) {
         return new Order(1L, customer, 0.0, null);
     }
-
-    public static Order createOrderWithDiscount(Double discountRate) {
-        return new Order(1L, Customers.createCustomer(), discountRate, null);
-    }
-
-    public static Order createOrderWithCouponCode(String couponCode) {
-        return new Order(1L, Customers.createCustomer(), 0.0, couponCode);
-    }
 }
 
 public class Customers {
-    public static Customer createCustomer() {
-        return new Customer(1L, "Unimportant", Addresses.createAddress());
+    public static Customer createCustomerWithAddress(Address address) {
+        return new Customer(1L, "Unimportant", address);
     }
+}
 
-    public static Customer createCustomerWithAddress(String name, Address address) {
-        return new Customer(1L, name, address);
+public class Addresses {
+    public static Address createAddressWithCountry(String country) {
+        return new Address("Some street", "Some city", "Some postal code", country);
     }
 }
 
@@ -120,15 +108,13 @@ Now we call our factory methods from the test code.
 
 ```java
     @Test
-    void constructOrder() {
-        OrderItem coffeeMug = OrderItems.createOrderItem("Coffee Mug");
-        OrderItem teaCup = OrderItems.createOrderItem("Tea cup");
-        Order orderWithDiscount = Orders.createOrderWithDiscount(0.1);
-        orderWithDiscount.addOrderItem(coffeeMug);
-        orderWithDiscount.addOrderItem(teaCup);
-        Order orderWithCouponCode = Orders.createOrderWithCouponCode("HALFOFF");
-        orderWithCouponCode.addOrderItem(coffeeMug);
-        orderWithCouponCode.addOrderItem(teaCup);
+    void constructOrderWithForeignAddress() {
+        Address address = Addresses.createAddressWithCountry("United States");
+        Customer customer = Customers.createCustomerWithAddress(address);
+        Order order = Orders.createOrderWithCustomer(customer);
+        order.addOrderItem(OrderItems.createOrderItem("Coffee mug"));
+        
+        // ...
     }
 ```
 
@@ -186,65 +172,85 @@ public class OrderBuilder {
 We provide the actual values using public "with" methods which can be chained.
 
 ```java
-    Order order = new OrderBuilder()
-            .withCustomer(new CustomerBuilder()
-                    .withName("Terry Tew")
-                    .withAddress(new AddressBuilder()
-                            .withStreet("1216  Clinton Street")
-                            .withCity("Philadelphia")
-                            .withPostalCode("19108")
-                            .build()
-                    )
-                    .build()
-            )
-            .withOrderItem(new OrderItemBuilder()
-                    .withName("Coffee mug")
-                    .withQuantity(1)
-                    .build()
-            )
-            .withOrderItem(new OrderItemBuilder()
-                    .withName("Tea cup")
-                    .withQuantity(1)
-                    .build()
-            )
-            .build();
+    @Test
+    void constructOrderWithForeignAddress() {
+        Order order = new OrderBuilder()
+                .withId(1L)
+                .withCustomer(new CustomerBuilder()
+                        .withCustomerId(1L)
+                        .withName("Terry Tew")
+                        .withAddress(new AddressBuilder()
+                                .withStreet("1216  Clinton Street")
+                                .withCity("Philadelphia")
+                                .withPostalCode("19108")
+                                .withCountry("United States")
+                                .build()
+                        )
+                        .build()
+                )
+                .withOrderItem(new OrderItemBuilder()
+                        .withName("Coffee mug")
+                        .withQuantity(1)
+                        .build()
+                )
+                .build();
+    }
 ```
 
-Test data builders offer several benefits over constructing objects by hand:
+The example doesn't provide any advantage over the object mother yet. Next, let's look at how we can improve the situation.
 
-1. They hide most of the syntax noise related to creating objects.
-2. They make the simple cases simple, and special cases are not much more complicated.
-3. They are resilient to changes that happen in the structure of objects.
-4. They make the test code easier to read and spot errors.
+### :see_no_evil: Set Safe Default Values to Hide Details
 
-Consider an example where you accidentally switch the argument order.
+If our classes expect some values to exist, our test code has to provide these values. However, a lot of times, these values might not be relevant to the test case. We want to **hide the details that are irrelevant to the test**.
+
+Let's change the way we build the dependent objects.
 
 ```java
-    Address address = new Address("1216  Clinton Street", "19108", "Philadelphia", null);
+public class OrderBuilder {
+
+    private Long orderId = 1L;
+    private Customer customer = new CustomerBuilder().build();
+    private List<OrderItem> orderItems = new ArrayList<>();
+    private Double discountRate = 0.0;
+    private String couponCode;
+  
+    // ...
+}
+
+public class AddressBuilder {
+    private String street = "Some street";
+    private String city = "Some city";
+    private String postalCode = "Some postal code";
+    private String country = "Some country";
+
+    // ...
+}
 ```
 
-We have switched places for the postal code and the city. The error is not easy to spot.
-
-The same could happen when using an object mother.
+By setting a default value to the `customerBuilder` field and any other fields, we provide safe values for these fields. This way, we can **omit any fields that are not relevant** to our test but require a value.
 
 ```java
-    Address address = Addresses.createAddress("1216  Clinton Street", "19108", "Philadelphia");
+    @Test
+    void constructOrderWithForeignAddress() {
+        Order order = new OrderBuilder()
+                .withCustomer(new CustomerBuilder()
+                        .withAddress(new AddressBuilder().withCountry("United States").build())
+                        .build()
+                )
+                .withOrderItem(new OrderItemBuilder()
+                        .withName("Coffee mug")
+                        .withQuantity(1)
+                        .build()
+                )
+                .build();
+    }
 ```
 
-Using a test data builder makes it more obvious.
-
-```java
-    Address address = new AddressBuilder()
-            .withStreet("1216 Clinton Street")
-            .withCity("19108")
-            .withPostalCode("Philadelphia");
-```
-
-The example should encourage introducing domain types to avoid situations like this from happening.
+Now the test data builder can hide details like the object mother pattern does. However, the builder is more flexible than the object mother. 
 
 ### :arrow_right: Simplify Code by Passing Builders as Arguments
 
-In our builder example, the builder consumes some arguments that are objects built by other builders. If we pass those builders as arguments instead of the constructed objects, we can simplify the code by removing build methods.
+In our builder example, the builder consumes some arguments that are objects built by other builders. If we pass those builders as arguments instead of the constructed objects, we can simplify the code by removing the calls to `build()` methods.
 
 ```java
 public class OrderBuilder {
@@ -262,53 +268,17 @@ public class OrderBuilder {
 Now using the builder becomes less verbose. 
 
 ```java
-    Order order = new OrderBuilder()
+    @Test
+    void constructOrderWithForeignAddress() {
+        Order order = new OrderBuilder()
             .witCustomer(new CustomerBuilder()
-                    .withName("Terry Tew")
-                    .withAddress(new AddressBuilder()
-                            .withStreet("1216  Clinton Street")
-                            .withCity("Philadelphia")
-                            .withPostalCode("19108")
-                    )
+                    .withAddress(new AddressBuilder().withCountry("United States"))
             )
             .withOrderItem(new OrderItemBuilder().withName("Coffee mug").withQuantity(1))
-            .withOrderItem(new OrderItemBuilder().withName("Tea cup").withQuantity(1))
             .build();
 ```
 
-### :see_no_evil: Set Safe Default Values to Hide Details
-
-If our classes expect some values to exist, our test code has to provide these values. However, a lot of times, these values might not be relevant to the test case. We want to **hide the details that are irrelevant to the test**.
-
-Let's change the way we build the dependent objects.
-
-```java
-public class OrderBuilder {
-
-    private Long orderId = 1L;
-    private CustomerBuilder customerBuilder = new CustomerBuilder();
-    private List<OrderItem> orderItems = new ArrayList<>();
-    private Double discountRate = 0.0;
-    private String couponCode;
-
-    // ...
-    
-    public OrderBuilder withCustomer(CustomerBuilder customerBuilder) {
-        this.customerBuilder = customerBuilder;
-        return this;
-    }
-    
-    // ...
-
-    public Order build() {
-        Order order = new Order(orderId, customerBuilder.build(), discountRate, couponCode);
-        orderItems.forEach(order::addOrderItem);
-        return order;
-    }
-}
-```
-
-By setting a default value to the `customerBuilder` field and any other fields, we provide safe values for these fields. This way, we can omit any fields that are not relevant to our test but require a value.
+We were able to get rid of some syntax noise. 
 
 ### :factory: Emphasize Domain With Factory Methods
 
@@ -347,18 +317,10 @@ By using static imports we can avoid mentioning the word "builder" in the tests.
 
 ```java
     @Test
-    void buildOrder() {
+    void buildOrderWithForeignAddress() {
         Order order = anOrder()
-                .with(aCustomer()
-                        .withName("Terry Tew")
-                        .with(anAddress()
-                                .withStreet("1216  Clinton Street")
-                                .withCity("Philadelphia")
-                                .withPostalCode("19108")
-                        )
-                )
+                .with(aCustomer().with(anAddress().withCountry("United States")))
                 .with(anOrderItem().withName("Coffee mug").withQuantity(1))
-                .with(anOrderItem().withName("Tea cup").withQuantity(1))
                 .build();
     }
 ```
@@ -588,9 +550,7 @@ Since we cannot pass around builders as arguments, the code is still a little **
 
 ## :white_check_mark: Summary
 
-Test data builders help to **hide syntax noise related to creating objects** and make the code easier to read. Test data builders also **make the code more descriptive and the tests less brittle**.
-
-Passing builders as arguments to other builders allows for making the code more compact. Using factory methods to create the builders hides the noise of constructing the builder classes.
+Test data builders offer several benefits over constructing objects by hand. They help to **hide syntax noise related to creating objects**. They make the simple cases simple, and special cases are not much more complicated. Test data builders also **make the code easier to read** and are **resilient to changes in the object structure**.
 
 We can also take advantage of the Lombok builders combined with the object mother pattern. While we lose a bit in the compactness, we **reduce a lot of the boilerplate code**.
 
