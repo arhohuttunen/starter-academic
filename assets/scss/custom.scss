@@ -4,37 +4,6 @@ a.navbar-brand {
 .navbar-nav a.nav-link {
   text-transform: uppercase;
 }
-.home-section.light h1 {
-  color: #2c3e50;
-}
-// Recent Posts, Featured Posts, etc.
-.home-section:nth-of-type(even) .section-heading h1 {
-  color: #fff;
-}
-.home-section.light a {
-  color: #fff;
-}
-// List view: Items
-.home-section:nth-of-type(even) .view-list-item a {
-  color: #fff;
-}
-// Compact view: Last updated, reading time, etc.
-.home-section:nth-of-type(even) .article-metadata {
-  color: #fff;
-}
-// Compact view: Summary text
-.home-section:nth-of-type(even) .article-style {
-  color: #fff;
-}
-// Compact view: Links
-.home-section:nth-of-type(even) .media-body a {
-  color: #fff;
-}
-// Compact view: Links hovered
-.home-section:nth-of-type(even) .media-body a:hover {
-  color: #2c3e50;
-  transition: color 0.6s ease;
-}
 .page-footer {
   background-color: #2c3e50;
 }
