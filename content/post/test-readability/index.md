@@ -7,7 +7,7 @@ summary: In this article, we will learn different ways to improve test readabili
 categories:
   - Testing
 tags:
-  - clean code
+  - Clean code
 image:
   focal_point: top
 ---
