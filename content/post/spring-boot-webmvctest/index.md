@@ -287,4 +287,6 @@ Spring controllers have a lot of responsibilities. To test the controllers thoro
 
 Unit testing the controllers won't cover all the responsibilities the controllers have. Spring Boot provides everything we need for integration testing the controllers using `@WebMvcTest`.
 
+In the following article of this mini-series, we will discuss integration testing our persistence layer of the application.
+
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-unit-testing).
