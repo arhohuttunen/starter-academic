@@ -289,4 +289,4 @@ Unit testing the controllers won't cover all the responsibilities the controller
 
 In the following article of this mini-series, we will discuss integration testing our persistence layer of the application.
 
-You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-unit-testing).
+You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-webmvctest).
