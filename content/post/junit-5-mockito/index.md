@@ -121,7 +121,7 @@ We can also tell Mockito to inject mocks automatically to a field annotated with
 When `MockitoAnnotations.openMocks()` is called, Mockito will:
  - Create mocks for fields annotated with the `@Mock` annotation
  - Create an instance of the field annotated with `@InjectMocks` and try to inject the mocks into it
- 
+
 Using `@InjectMocks` is the same as we did when instantiating an instance manually, but now automatic.
 
 ```java
@@ -263,7 +263,7 @@ Injecting mocks to method parameters works both on the lifecycle methods and on 
 
 ## Summary
 
-There are three different ways of using Mockito with JUnit 5. First two approaches work independently of the used framework, while the third one utilizes the Mockit JUnit 5 extension.
+There are three different ways of using Mockito with JUnit 5. First two approaches work independently of the used framework, while the third one utilizes the Mockito JUnit 5 extension.
 
 Mocks can be created and initialized by:
 
