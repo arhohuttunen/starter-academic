@@ -20,11 +20,11 @@ First, we will discuss if unit testing controllers is enough. Then, we will disc
 ## The Spring Boot Testing Mini-Series
 
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
-2. Testing the Web Layer With Spring Boot `@WebMvcTest`
-3. Testing the Persistence Layer With Spring Boot `@DataJpaTest`
-4. Testing Serialization With Spring Boot `@JsonTest`
-5. Testing REST Calls With `WebTestClient` And `MockWebServer`
-6. Spring Boot Integration Testing with `@SpringBootTest`
+2. Testing Web Controllers With Spring Boot @WebMvcTest
+3. Testing the Persistence Layer With Spring Boot @DataJpaTest
+4. Testing Serialization With Spring Boot @JsonTest
+5. Testing REST Calls With WebTestClient And MockWebServer
+6. Spring Boot Integration Testing with @SpringBootTest
 
 ## Is Unit Testing Enough?
 
@@ -160,6 +160,7 @@ In our controller, we have annotated the request body parameter with the `@Valid
 ```java
 public class PaymentRequest {
     @NotNull
+    @CreditCardNumber
     private String creditCardNumber;
 }
 ```
@@ -180,7 +181,25 @@ If the validation fails, we should get an HTTP status 400 Bad Request as a resul
 
 If the request body has more fields, it can be tempting to validate all those fields in the controller test. However, in controller tests, one could argue that it’s more important to test that validation happens. We could, for example, forget to annotate the request body parameter with the `@Valid` annotation.
 
-It's also possible to write separate unit tests for the validation rules. We need to call the Java `Validator` methods directly and pass the validated object as an argument.
+It's also possible to write separate unit tests for the validation rules. We need to call the Java `Validator` methods directly and pass the validated object as an argument:
+
+```java
+class PaymentRequestTests {
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+    @Test
+    void creditCardNumberMustNotBeNull() {
+        String creditCardNumberWithInvalidChecksum = "4532756279624063";
+        PaymentRequest request = new PaymentRequest(creditCardNumberWithInvalidChecksum);
+
+        Set<ConstraintViolation<PaymentRequest>> violations = validator.validate(request);
+
+        assertThat(violations).isNotEmpty();
+    }
+}
+```
+
+If we had many validation rules, we could validate the rules using such a unit test. In the controller test, we don't have to check all the rules - it is enough to trigger the validation once to make sure it happens.
 
 ## Verify Result Serialization
 
