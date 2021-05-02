@@ -329,7 +329,7 @@ The main advantages of this approach are that it's refactoring-safe and it's not
 An alternative to manually inserting data is to use some scripts. Spring offers an `@Sql` annotation that can be used to populate the database. Let's consider we have the following SQL:
 
 ```sql
-INSERT INTO orders (id, date, amount, paid) VALUES (1, NOW(), 100.0, true);
+INSERT INTO orders (id, date, amount, paid) VALUES (1, current_date, 100.0, true);
 INSERT INTO payment (id, order_id, credit_card_number) VALUES (1, 1, '4532756279624064');
 ```
 
@@ -402,8 +402,8 @@ void findPaymentsByCreditCard() {
 The test is giving us false confidence about correctness. The test dataset needs to have at least one payment that does not match the credit card number:
 
 ```sql
-INSERT INTO orders (id, date, amount, paid) VALUES (1, NOW(), 100.0, true);
-INSERT INTO orders (id, date, amount, paid) VALUES (2, NOW(), 50.0, true);
+INSERT INTO orders (id, date, amount, paid) VALUES (1, current_date, 100.0, true);
+INSERT INTO orders (id, date, amount, paid) VALUES (2, current_date, 50.0, true);
 
 INSERT INTO payment (id, order_id, credit_card_number) VALUES (1, 1, '4532756279624064');
 INSERT INTO payment (id, order_id, credit_card_number) VALUES (2, 2, '4716327217780406');
