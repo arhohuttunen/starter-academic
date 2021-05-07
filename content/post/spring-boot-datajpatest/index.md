@@ -39,6 +39,8 @@ Next, let's remind ourselves about one of the characteristics of unit tests: _A 
 
 However, the only way to make sure that, for example queries work is to execute them against a running database. Unit testing the persistence layer doesn't make sense.
 
+If we test our persistence layer in isolation, we should be able to trust that it works. There should be no need to write tests on other layers that need the database. It's simple to mock the persistence layer away. We shouldn't care about the correctness of the persistence layer in those tests.
+
 Let's look at how we can deal with the above matters.
 
 ## Write an Integration Test With @DataJpaTest
@@ -272,21 +274,9 @@ So far, we have only talked about whether to test the queries or not. However, t
 
 Tests should also be independent of each other and should not rely on the results of other tests. Therefore every test should start from a known database state. 
 
-{{% callout note %}}
-
-**Transactional Or Not?**
-
 Two common approaches to put the database into a known state are to make the tests transactional or clean up the database before each test.
 
 Spring `@DataJpaTest` is `@Transactional` by default. Transactional tests will roll back the changes after the test has been executed.
-
-Some argue that transactional tests are harmful because we can get false positives or false negatives. They conclude that you cannot be sure that your tests write to the database.
-
-Quite frankly, the only situations I have had problems with this are legacy code or testing on the wrong layer.
-
-If we test our persistence layer in isolation, we should be able to trust that it works. There should be no need to write tests on other layers that need the database. It's simple to mock the persistence layer away. We shouldn't care about the correctness of the persistence layer in those tests.
-
-{{% /callout %}}
 
 ### Manually Insert Entities
 
@@ -352,7 +342,7 @@ The script-based approaches suffer from a couple of drawbacks:
 
 There are other tools as well, like [Database Rider](https://github.com/database-rider/database-rider). This tool utilizes DBUnit, which uses datasets to put the database into a known state. Database Rider allows the datasets to be written in XML, JSON, or YAML.
 
-Database Rider is an excellent alternative if we don't want to use transactions in our tests because it also allows cleaning up the database before a test.
+Database Rider is an excellent alternative if we don't want to make our tests transactional because it also allows cleaning up the database before a test.
 
 ## Verify Constraints
 
