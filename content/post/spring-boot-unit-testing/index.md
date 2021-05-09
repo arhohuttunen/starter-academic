@@ -26,7 +26,7 @@ This article is the first one of the Spring Boot Testing mini-series. In this ar
 1. Spring Boot Unit Testing
 2. [Testing Web Controllers With Spring Boot @WebMvcTest](/spring-boot-webmvctest/)
 3. [Testing the Persistence Layer With Spring Boot @DataJpaTest](/spring-boot-datajpatest/)
-4. Testing Serialization With Spring Boot @JsonTest 
+4. [Testing Serialization With Spring Boot @JsonTest](/spring-boot-jsontest/)
 5. Testing REST Calls With WebTestClient And MockWebServer
 6. Spring Boot Integration Testing with @SpringBootTest 
 
@@ -253,3 +253,4 @@ Using `@SpringBootTest` for writing plain unit tests can be considered harmful b
 In addition to unit testing, we should also write integration tests. In the following article of this mini-series, we will discuss integration testing our web layer of the application.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-unit-testing).
+

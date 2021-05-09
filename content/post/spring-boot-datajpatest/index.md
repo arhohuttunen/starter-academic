@@ -22,7 +22,7 @@ First, we will discuss what we should be testing in the persistence layer. Then,
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
 2. [Testing Web Controllers With Spring Boot @WebMvcTest](/spring-boot-webmvctest/)
 3. Testing the Persistence Layer With Spring Boot @DataJpaTest
-4. Testing Serialization With Spring Boot @JsonTest
+4. [Testing Serialization With Spring Boot @JsonTest](/spring-boot-jsontest/)
 5. Testing REST Calls With WebTestClient And MockWebServer
 6. Spring Boot Integration Testing with @SpringBootTest
 
@@ -412,3 +412,4 @@ We should also test the constraints for more robust tests and make sure we have 
 In the following article of this mini-series, we will discuss testing JSON serialization separately.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-datajpatest).
+

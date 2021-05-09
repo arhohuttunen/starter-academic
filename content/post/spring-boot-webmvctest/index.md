@@ -26,7 +26,7 @@ First, we will discuss if unit testing controllers is enough. Then, we will disc
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
 2. Testing Web Controllers With Spring Boot @WebMvcTest
 3. [Testing the Persistence Layer With Spring Boot @DataJpaTest](/spring-boot-datajpatest/)
-4. Testing Serialization With Spring Boot @JsonTest
+4. [Testing Serialization With Spring Boot @JsonTest](/spring-boot-jsontest/)
 5. Testing REST Calls With WebTestClient And MockWebServer
 6. Spring Boot Integration Testing with @SpringBootTest
 
@@ -313,3 +313,4 @@ Unit testing the controllers won't cover all the responsibilities the controller
 In the following article of this mini-series, we will discuss integration testing our persistence layer of the application.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-webmvctest).
+
