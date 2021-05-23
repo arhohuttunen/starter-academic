@@ -58,19 +58,19 @@ public class TwilioClient {
 }
 ```
 
-When we make a request, the requests consist of an HTTP method, an endpoint URL, an optional request body, and possibly some headers. Our class is responsible for making the correct request.
+When we make a request, the requests consist of an HTTP method, an endpoint URL, an optional request body, and possibly some headers. Our class is responsible for **making the correct request**.
 
-The `WebClient` implementation also serializes a given body value into JSON format. Also, our `TwilioClient` wrapper class is responsible for mapping any input values to the request body values.
+The `WebClient` implementation serializes a given body value into JSON format. Also, our `TwilioClient` wrapper class is responsible for **mapping arguments to the request** body values.
 
-Once their remote server returns a response, the `WebClient` implementation deserializes that content into some response class. If our wrapper class were to produce some results for the caller, it would also be responsible for mapping the response.
+Once the remote server returns a response, the `WebClient` implementation deserializes that content into some response class. If our wrapper class were to produce some results for the caller, it would also be responsible for **mapping the response to the results**.
 
-Finally, when `WebClient` encounters an HTTP error status, it will throw a `WebClientException` by default. However, it's also possible to define our own error mapping.
+Finally, when `WebClient` encounters an HTTP error status, it will throw a `WebClientException` by default. However, it's also possible to define our own **error handling**.
 
 Looking at these observations, we can derive the following responsibilities:
 
 1. Making requests to the remote server.
-2. Input value mapping and request serialization.
-3. Response deserialization and mapping.
+2. Arguments mapping and request serialization.
+3. Response deserialization and results mapping.
 4. Error handling.
 
 The `WebClient` implementation handles the concerns mentioned above. Next, let's examine what happens if we try to unit test the `TwilioClient` wrapper class.
@@ -121,24 +121,24 @@ public class TwilioClientTests {
 }
 ```
 
-There are several issues with an approach like this. First of all, it's very lengthy and not very readable. Second, the test has to know precisely how our class uses `WebClient`, making the test brittle.
+There are several issues with an approach like this. First of all, it's very lengthy and not very readable. Second, the test has to know precisely how our class uses `WebClient`, making the test brittle. Whenever we have to return mocks from mocks, something is a little wrong.
 
 What about the responsibilities we were talking about before? Let's look at the duties and how this test is dealing with those.
 
-- We are stubbing the `post()` and `uri()` calls and return a request body for only a specific URI. This verifies that we are using the correct HTTP method and path, but does our test now know if we are making the request correctly in the end?
-- We are mocking the `bodyValue()` call and match a specific request value. This verifies that our inputs are correctly mapped to the request body, but do we know if the request body gets serialized correctly?
+- We are stubbing the `post()` and `uri()` calls and return a request body for only a specific URI. We verify that we are using the correct HTTP method and path, but do we know the actual HTTP request is as expected?
+- We are mocking the `bodyValue()` call and match a specific request value. We verify that our inputs are correctly mapped to the request body, but do we know if the request body gets serialized correctly?
 - We are also mocking the `retrieve()` and  `bodyToMono()` calls, which skip retrieving the response and deserialization entirely. How do we know if a given reply gets correctly processed?
 - If we would add some error handling calls to the `WebClient`, we could mock those calls again. However, simulating error conditions would mean that we needed to know how `WebClient` works, and we might have to throw specific exceptions from other stubbed methods.
 
-Unit tests like this are the reason why people start hating on unit tests. The test is easy to break, and it's cumbersome to write. Tests like this become a liability.
+**Unit tests like this are the reason why people start hating on unit tests**. The test is easy to break, and it's cumbersome to write. Tests like this become a liability.
 
 A better alternative is to write an integration test for `TwilioClient`. We can provide a mock service for the remote service instead of mocking `WebClient`. In our other tests that depend on this functionality, we can mock the `TwilioClient` wrapper class.
 
 ## Write an Integration Test With MockWebServer
 
-To replace the remote service with a mock service, we can use `MockWebServer`. This library lets us specify which response to return and then verify that requests were made as expected.
+To replace the remote service with a mock service, we can use `MockWebServer`. This library lets us run a lightweight web server locally in our tests. The library allows us to specify which response to return and then verify the requests we made. We could even copy-paste responses from the real server into our tests.
 
-The overhead of starting the mock web server is negligible, but it's still slower than a pure unit test. Since it's communicating over an HTTP connection, it's not a unit test.
+The overhead of starting the mock web server is negligible, but it's still slightly slower than a pure unit test. Since it's communicating over an HTTP connection, it's not a unit test.
 
 Using `MockWebServer` is quite straightforward:
 
@@ -160,9 +160,9 @@ public class TwilioClientTests {
 }
 ```
 
-When started, `MockWebServer` dynamically allocates a port on localhost on which it's running. In our test, we can then pass the URL of that running server to our `WebClient` instance.
+When started, `MockWebServer` dynamically allocates a port on localhost on which it's running. We can then pass the URL of that running server to our `WebClient` instance to make any requests go to the mock server in our test.
 
-`MockWebServer` provides a way to specify the responses we want it to return and capture the request made to the server. This allows us to verify that our implementation works against an actual HTTP server.
+`MockWebServer` provides a way to specify the responses we want it to return. Once started, the server also captures any requests made to it.
 
 Let's look at how to deal with responses and requests next.
 
@@ -222,7 +222,9 @@ public class TwilioClientTests {
 }
 ```
 
-Using the `BasicJsonTester.from()` method, we get a `JsonContent` object, which allows us to write AssertJ assertions that use JSONPath expressions. This approach verifies both that the data is mapped correctly and that the serialization works.
+Since the request body is just a string, verifying the contents would not be pleasant without making comparisons to the JSON. Using the `BasicJsonTester.from()` method, we get a `JsonContent` object, which allows us to write AssertJ assertions that use JSONPath expressions.
+
+This approach verifies both that our wrapper class maps the data correctly and that the serialization works.
 
 ## Verify Response Deserialization and Output Mapping
 
@@ -237,7 +239,7 @@ public class ExchangeResponse {
 }
 ```
 
-The API response has more fields in it, but these are the ones we are interested in. Note how we are also using `@JsonAlias` here, which means that we should be testing the deserialization.
+The API response has more fields in it, but we are ignoring the uninteresting ones. Note how we are also using `@JsonAlias` here, which means that a mocked `WebClient` would miss this deserialization detail.
 
 Now let's also add an `ExchangeRateClient` that calls the API and then returns the exchange rate or throws an exception on failure:
 
@@ -291,7 +293,7 @@ Our test now effectively verifies that the response was deserialized correctly a
 
 `WebClient` default behavior is to throw `WebClientException` for any 4xx or 5xx HTTP status codes. In the rest of our code, we could write an exception handler to handle that gracefully. We should also be able to trust that the `WebClient` default behavior works.
 
-However, sometimes we need to handle these errors a little differently. For example, we might want to do some specific actions or throw our custom exception.
+However, sometimes we need to handle these errors a little differently. For example, we might want to do some specific actions on error or throw our custom exception.
 
 The Exchange Rate API that we are using in the example can also return error responses. Let's say we want to throw an exception in such cases:
 
