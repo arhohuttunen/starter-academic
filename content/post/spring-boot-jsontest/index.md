@@ -6,9 +6,8 @@ summary: Learn how to test JSON serialization in Spring Boot using @JsonTest. Le
 categories:
   - Testing
 tags:
-  - Clean code
   - JUnit 5
-  - Spring
+  - Spring Boot
 image:
   focal_point: center
   preview_only: true

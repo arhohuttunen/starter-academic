@@ -6,9 +6,8 @@ summary: Learn how to test WebClient REST calls with MockWebServer. Learn the re
 categories:
   - Testing
 tags:
-  - Clean code
   - JUnit 5
-  - Spring
+  - Spring Boot
 image:
   focal_point: center
 ---

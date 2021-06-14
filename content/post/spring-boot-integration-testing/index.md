@@ -6,9 +6,8 @@ summary: Learn how to write integration tests with @SpringBootTest. Learn differ
 categories:
   - Testing
 tags:
-  - Clean code
   - JUnit 5
-  - Spring
+  - Spring Boot
 image:
   focal_point: center
 ---

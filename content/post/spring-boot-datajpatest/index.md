@@ -6,9 +6,8 @@ summary: Learn how to test Spring Boot repositories using @DataJpaTest. Learn wh
 categories:
   - Testing
 tags:
-  - Clean code
   - JUnit 5
-  - Spring
+  - Spring Boot
 image:
   focal_point: center
   preview_only: true

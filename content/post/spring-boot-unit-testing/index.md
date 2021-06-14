@@ -6,9 +6,8 @@ summary: Learn how to write unit tests for Spring Boot applications. Learn the t
 categories:
   - Testing
 tags:
-  - Clean code
   - JUnit 5
-  - Spring
+  - Spring Boot
 image:
   focal_point: center
   preview_only: true
