@@ -23,7 +23,7 @@ First, we will discuss what responsibilities a WebClient has. Then, we will look
 3. [Testing the Persistence Layer With Spring Boot @DataJpaTest](/spring-boot-datajpatest/)
 4. [Testing Serialization With Spring Boot @JsonTest](/spring-boot-jsontest/)
 5. Testing Spring WebClient REST Calls With MockWebServer
-6. Spring Boot Integration Testing with @SpringBootTest
+6. [Spring Boot Integration Testing with @SpringBootTest](/spring-boot-integration-testing/)
 
 ## Responsibilities of a WebClient
 

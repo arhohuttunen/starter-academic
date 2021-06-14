@@ -28,7 +28,7 @@ First, we will discuss why we might want to test serialization and deserializati
 3. [Testing the Persistence Layer With Spring Boot @DataJpaTest](/spring-boot-datajpatest/)
 4. Testing Serialization With Spring Boot @JsonTest
 5. [Testing Spring WebClient REST Calls With MockWebServer](/spring-boot-webclient-mockwebserver/)
-6. Spring Boot Integration Testing with @SpringBootTest
+6. [Spring Boot Integration Testing with @SpringBootTest](/spring-boot-integration-testing/)
 
 ## Isn't @WebMvcTest Enough?
 

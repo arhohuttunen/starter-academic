@@ -19,7 +19,7 @@ First, we will discuss different types of integration tests. Then, we will disco
 ## The Spring Boot Testing Mini-Series
 
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
-2. Testing Web Controllers With Spring Boot @WebMvcTest
+2. [Testing Web Controllers With Spring Boot @WebMvcTest](/spring-boot-webmvctest/)
 3. [Testing the Persistence Layer With Spring Boot @DataJpaTest](/spring-boot-datajpatest/)
 4. [Testing Serialization With Spring Boot @JsonTest](/spring-boot-jsontest/)
 5. [Testing Spring WebClient REST Calls With MockWebServer](/spring-boot-webclient-mockwebserver/)
