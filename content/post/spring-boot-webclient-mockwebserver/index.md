@@ -10,7 +10,11 @@ tags:
   - Spring Boot
 image:
   focal_point: center
+  preview_only: true
 ---
+
+{{< youtube GBKY8QyfNDk >}}
+<br/>
 
 This article is the fifth part of the Spring Boot Testing mini-series. In this article, we look at how to write tests for WebClient REST calls.
 
