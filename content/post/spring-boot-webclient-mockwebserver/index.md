@@ -20,6 +20,8 @@ This article is the fifth part of the Spring Boot Testing mini-series. In this a
 
 First, we will discuss what responsibilities a WebClient has. Then, we will look at what kind of tests we should write to test those responsibilities and how.
 
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).
+
 ## The Spring Boot Testing Mini-Series
 
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
@@ -350,3 +352,5 @@ To mock the `WebClient` in other tests, we can first write a wrapper class for i
 In the following article of this mini-series, we will discuss how to write integration tests with `@SpringBootTest`.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-webclient-mockwebserver).
+
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).

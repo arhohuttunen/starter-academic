@@ -20,6 +20,8 @@ In this article, we will learn how to write unit tests for our Spring Boot appli
 
 This article is the first one of the Spring Boot Testing mini-series. In this article, we only discuss unit testing. We will discuss integration testing in the upcoming articles.
 
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).
+
 ## The Spring Boot Testing Mini-Series
 
 1. Spring Boot Unit Testing
@@ -253,3 +255,4 @@ In addition to unit testing, we should also write integration tests. In the foll
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-unit-testing).
 
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).

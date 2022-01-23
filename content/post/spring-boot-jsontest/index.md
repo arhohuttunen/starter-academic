@@ -21,6 +21,8 @@ This article is the fourth part of the Spring Boot Testing mini-series. In this 
 
 First, we will discuss why we might want to test serialization and deserialization separately. Then, we will look at how to write such tests.
 
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).
+
 ## The Spring Boot Testing Mini-Series
 
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
@@ -215,3 +217,5 @@ Testing serialization and deserialization of custom types or formats is simple w
 In the following article of this mini-series, we will discuss how to test REST calls to other services.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-jsontest).
+
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).

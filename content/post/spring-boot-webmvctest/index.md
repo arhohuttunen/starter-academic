@@ -20,6 +20,8 @@ This article is the second part of the Spring Boot Testing mini-series. In this 
 
 First, we will discuss if unit testing controllers is enough. Then, we will discover what responsibilities the controllers are dealing with and how to test them.
 
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).
+
 ## The Spring Boot Testing Mini-Series
 
 1. [Spring Boot Unit Testing](/spring-boot-unit-testing/)
@@ -313,3 +315,4 @@ In the following article of this mini-series, we will discuss integration testin
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-webmvctest).
 
+If you are interested in a complete course on the topic, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. It's the course about Spring Boot testing I would have created had I been inclined (so I have no problem recommending it to you using my affiliate link).
