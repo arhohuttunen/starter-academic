@@ -43,9 +43,9 @@ header:
 
 footer:
   copyright:
-    notice: '© {year} Arho Huttunen. This work is licensed under {license}'
+    notice: '© 2015-{year} Arho Huttunen. All rights reserved.'
     license:
-      enable: true
+      enable: false
       allow_derivatives: false
       share_alike: true
       allow_commercial: false
