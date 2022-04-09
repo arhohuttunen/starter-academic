@@ -1,14 +1,12 @@
 # Theme metadata
 name = "Coding Revolution"
 
-# Is theme light or dark?
-light = true
+[light]
+  # Primary
+  primary = "#1abc9c"
 
-# Primary
-primary = "#1abc9c"
-
-# Menu
-menu_primary = "#2c3e50"
-menu_text = "#fff"
-menu_text_active = "#1abc9c"
-menu_title = "#fff"
+  # Menu
+  menu_primary = "#2c3e50"
+  menu_text = "#fff"
+  menu_text_active = "#1abc9c"
+  menu_title = "#fff"
