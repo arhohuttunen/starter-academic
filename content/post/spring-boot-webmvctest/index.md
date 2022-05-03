@@ -30,6 +30,7 @@ If you are interested in a complete course on the topic, check out [Testing Spri
 4. [Testing Serialization With Spring Boot @JsonTest](/spring-boot-jsontest/)
 5. [Testing Spring WebClient REST Calls With MockWebServer](/spring-boot-webclient-mockwebserver/)
 6. [Spring Boot Integration Testing with @SpringBootTest](/spring-boot-integration-testing/)
+7. [Spring Boot Testing Strategy](/spring-boot-testing-strategy/)
 
 ## Is Unit Testing Enough?
 
