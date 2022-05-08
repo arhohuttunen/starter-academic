@@ -345,4 +345,4 @@ To verify outside interactions, we can also write narrow integration tests and t
 
 Finally, we often neglect making the tests expressive. We should use test data builders, custom assertions, helper methods, and descriptive naming to make the tests readable. This also makes the test code more maintainable by isolating the risk of change.
 
-You can find the example code for this mini-series on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/).
+You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-testing-strategy).
