@@ -2,7 +2,7 @@
 widget: hero
 headless: true
 weight: 10
-title: Do you want to be a better developer?
+title: Learn to Build Software That Is Easy to Maintain
 hero_media: home.png
 design:
   background:
@@ -11,17 +11,20 @@ design:
     #text_color_light: true
 cta:
   url: https://www.youtube.com/channel/UCYxW02yOkWqV3nZTUBMfYzg
-  label: Visit my YouTube
+  label: Code With Arho
   icon_pack: fab
   icon: youtube
 cta_alt:
   url: post/
   label: Read the blog
 cta_note:
-  label: "Join me on the journey to become a better developer!"
+  label: Check out my YouTube channel if you prefer video tutorials.
 ---
 
-> Learn to code, code to learn.
+> Complex topics. Understandable guides.
 
-My mission is to introduce people to tools and skills that will make them better software developers. I want to make this information easy to access and understand.
+Easy to digest software development tutorials, and tips on how to become a better software developer. Save time, frustration and do a better job.
+
+Specialized in Java/Kotlin and Spring Boot.
+
 <p></p>
