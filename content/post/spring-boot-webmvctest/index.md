@@ -8,6 +8,7 @@ categories:
 tags:
   - JUnit 5
   - Spring Boot
+featured: true
 image:
   focal_point: center
   preview_only: true

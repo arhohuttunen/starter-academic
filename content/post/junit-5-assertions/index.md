@@ -7,7 +7,6 @@ categories:
   - Testing
 tags:
   - JUnit 5
-featured: true
 ---
 
 ## Overview
