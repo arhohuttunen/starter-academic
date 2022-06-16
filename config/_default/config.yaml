@@ -7,6 +7,16 @@ title: Arho Huttunen # Website name
 baseURL: 'https://www.arhohuttunen.com/' # Website URL
 
 ############################
+## PAGE OPTIONS
+############################
+
+cascade:
+  # Blog post options
+  - _target:
+      path: /post/**
+    commentable: true
+
+############################
 ## LANGUAGE
 ############################
 

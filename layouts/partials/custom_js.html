@@ -1,3 +1,25 @@
 <!-- Fathom - beautiful, simple website analytics -->
 <script src="https://cdn.usefathom.com/script.js" data-site="QKUXLWZX" defer></script>
 <!-- / Fathom -->
+<!-- Giscus -->
+<script>
+  function changeGiscusTheme(theme) {
+    function sendMessage(message) {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+      iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    }
+
+    sendMessage({
+      setConfig: {
+        theme: theme
+      }
+    });
+  }
+
+  document.addEventListener('wcThemeChange', (e) => {
+    const theme = e.detail.isDarkTheme() ? 'dark' : 'light';
+    changeGiscusTheme(theme);
+  });
+</script>
+<!-- / Giscus -->
