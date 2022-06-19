@@ -1,14 +1,21 @@
-<script src="https://giscus.app/client.js"
-        data-repo="arhohuttunen/arhohuttunen.com"
-        data-repo-id="MDEwOlJlcG9zaXRvcnkzMTQ3OTgyMzk="
-        data-category="Blog"
-        data-category-id="DIC_kwDOEsNwn84CPtYU"
-        data-mapping="title"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="light"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
+<script>
+  let giscusTheme = localStorage.getItem("giscus-theme");
+  let giscusAttributes = {
+    "src": "https://giscus.app/client.js",
+    "data-repo": "arhohuttunen/arhohuttunen.com",
+    "data-repo-id": "MDEwOlJlcG9zaXRvcnkzMTQ3OTgyMzk=",
+    "data-category": "Blog",
+    "data-category-id": "DIC_kwDOEsNwn84CPtYU",
+    "data-mapping": "pathname",
+    "data-reactions-enabled": "1",
+    "data-emit-metadata": "0",
+    "data-theme": giscusTheme,
+    "data-lang": "en",
+    "crossorigin": "anonymous",
+    "async": "",
+  };
+
+  let giscusScript = document.createElement("script");
+  Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+  document.querySelector("#comments").appendChild(giscusScript);
 </script>

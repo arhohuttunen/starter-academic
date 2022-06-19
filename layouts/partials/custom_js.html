@@ -19,6 +19,7 @@
 
   document.addEventListener('wcThemeChange', (e) => {
     const theme = e.detail.isDarkTheme() ? 'dark' : 'light';
+    localStorage.setItem('giscus-theme', theme);
     changeGiscusTheme(theme);
   });
 </script>
