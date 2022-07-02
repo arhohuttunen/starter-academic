@@ -1,5 +1,5 @@
 ---
-title: Avoiding unnecessary null checks
+title: Avoiding Unnecessary Null Checks
 date: 2015-09-21
 authors:
   - arhohuttunen
@@ -16,7 +16,6 @@ The most common reason for writing null checks is that you run into a null point
 The problem is that you are not probably handling null in every single method call. This means that there are potential bugs lurking everywhere.
 
 Null pointer exceptions are bad. Would it not be better if you did not have to check for nulls at all?
-<!--more-->
 
 > I call it my <a href="https://en.wikipedia.org/wiki/Tony_Hoare#Apologies_and_retractions">billion-dollar mistake</a>. It was the invention of the null reference in 1965. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
 <cite>Sir Tony Hoare, 2009</cite>
@@ -144,9 +143,11 @@ public class Customer {
 Not only this removes the need for null checks but also breaks up the conditional logic into composition of objects.
 
 {{% callout note %}}
-Additional reading:
+
+**Additional reading:**
 
 - [Switch statements](/switch-statements/)
+
 {{% /callout %}}
 
 ## Never pass null
@@ -156,7 +157,7 @@ For code that you own you should get rid of passing nulls. This way you do not e
 There are several ways of making sure that your parameters are never null:
 
 - Always initializing variables when they are introduced.
-- Using the [Builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to completely construct objects before being created.
+- Using the [Builder pattern](/test-data-builders/) to completely construct objects before being created.
 - Providing default values for properties or lazy loading.
 
 ## There is grey to every story
@@ -170,10 +171,12 @@ Sometimes null might be a valid functional result, e.g. if you are trying to fin
 You might still argue that you need to guard against developers passing in null. While it is partly true, it is better to focus your efforts in-house in never passing in null instead of null check. By doing so you not only reduce the number of lines of code written but also are forced to use better design practices.
 
 {{% callout note %}}
-Additional reading:
+
+**Additional reading:**
 
 - [Why NULL is Bad?](https://www.yegor256.com/2014/05/13/why-null-is-bad.html) by Yegor Bugayenko
 - [Say "No" to "Null"](https://elegantcode.com/2010/05/01/say-no-to-null/) by John Sonmez
 - [Avoiding Nulls with Polymorphic Dispatch](http://www.natpryce.com/articles/000778.html) by Nat Price
 - [Avoiding Nulls with "Tell, Don't Ask" Style](http://www.natpryce.com/articles/000777.html) by Nat Price
+
 {{% /callout %}}
