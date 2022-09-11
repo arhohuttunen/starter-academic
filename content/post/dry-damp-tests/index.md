@@ -18,7 +18,7 @@ image:
 {{< youtube cD4ThqhnAp0 >}}
 <br/>
 
-In this article, we will look at the DRY and DAMP principles in the context of testing. We will see why people consider these principles contradicting when writing tests and how you can achieve both.
+In this article, we will look at the DRY and DAMP principles in the context of testing. Our aim is to remove duplication in the tests while at the same time making them readable. We will see why people consider these principles contradicting when writing tests and how you can achieve both.
 
 ## :scroll: The DRY and DAMP principles
 
