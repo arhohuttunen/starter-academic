@@ -7,7 +7,9 @@ summary: Learn how to use the test data builder pattern to make it easy to creat
 categories:
   - Testing
 tags:
-  - Clean code
+  - Decoupling
+  - Maintainability
+  - Readability
 ---
 
 In this article, we will learn how to write test data builders that remove duplication in constructing objects and increase the expressiveness of the test code. We will also learn how to use Lombok to reduce boilerplate code around the builders.
