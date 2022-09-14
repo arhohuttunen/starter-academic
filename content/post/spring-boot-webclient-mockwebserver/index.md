@@ -1,8 +1,8 @@
 ---
-title: Testing Spring WebClient REST Calls With MockWebServer
+title: Testing Spring Boot WebClient With MockWebServer
 date: 2021-05-22
 author: Arho Huttunen
-summary: Learn how to test WebClient REST calls with MockWebServer. Learn the responsibilities of a web client and how to test them.
+summary: Mocking the Spring Boot WebClient can be difficult. Learn how to replace the remote service with a mock service using MockWebServer.
 categories:
   - Testing
 tags:
