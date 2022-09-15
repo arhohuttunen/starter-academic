@@ -25,11 +25,11 @@ If you prefer learning from videos, make sure to check out the following video:
 
 Also, if you are interested in a complete course on Spring Boot testing, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. You can support me by buying through that link because I get a share.
 
+## What is Spring WebClient?
+
+We can use Spring `WebClient` to call remote REST services. It is a non-blocking alternative to the Spring `RestTemplate`. Even though `WebClient` is reactive, it also supports synchronous operations by blocking.
+
 ## Responsibilities of a WebClient
-
-In an earlier article of this mini-series, we explored testing the REST controllers with `@WebMvcTest`. We saw that the controllers have many responsibilities and it's not enough to write just unit tests.
-
-When we make calls to other services using `WebClient`, our code has similar responsibilities. However, this time, we are making requests and processing responses instead of processing requests and returning responses.
 
 Let's take a look at a `TwilioClient` wrapper class implementation that tries to send SMS messages using the [Twilio API](https://www.twilio.com/docs/sms/api):
 
@@ -342,7 +342,5 @@ Something to notice in all these examples is that we are only dealing with input
 Mocking any `WebClient` REST calls made to other services is cumbersome and couples the test tightly to the implementation. A better approach is to use a fake server like `MockWebServer` and let the web client make requests against that.
 
 To mock the `WebClient` in other tests, we can first write a wrapper class for it and then mock that instead. We can integration test the web client separately, and other tests don’t have to worry about the web client.
-
-In the following article of this mini-series, we will discuss how to write integration tests with `@SpringBootTest`.
 
 You can find the example code for this article on [GitHub](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-boot-webclient-mockwebserver).
