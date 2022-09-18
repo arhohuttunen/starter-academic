@@ -8,6 +8,8 @@ categories:
 tags:
   - JUnit 5
   - Spring Boot
+  - Spring Data JPA
+  - Integration testing
 image:
   focal_point: center
   preview_only: true

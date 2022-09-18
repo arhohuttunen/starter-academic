@@ -8,7 +8,7 @@ categories:
 tags:
   - JUnit 5
   - Spring Boot
-  - Beginner
+  - Unit testing
 image:
   focal_point: center
   preview_only: true

@@ -8,6 +8,8 @@ categories:
 tags:
   - JUnit 5
   - Spring Boot
+  - Spring WebFlux
+  - Integration testing
 featured: true
 image:
   focal_point: center
