@@ -106,3 +106,5 @@ extensions:
     enable: true
   academicons:
     enable: true
+
+i_am_a_sponsor: true
