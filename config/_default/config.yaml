@@ -49,7 +49,6 @@ permalinks:
   event: '/talk/:slug/'
   tags: '/tag/:slug/'
   categories: '/category/:slug/'
-  publication_types: '/publication-type/:slug/'
   post: '/:filename'
 disableAliases: true
 outputs:
@@ -63,7 +62,6 @@ timeout: 600000
 taxonomies:
   tag: tags
   category: categories
-  publication_type: publication_types
   author: authors
 markup:
   _merge: deep
