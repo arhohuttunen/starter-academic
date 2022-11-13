@@ -12,7 +12,7 @@ role: Software Craftsman
 organizations: []
 
 # Short bio (displayed in user profile at end of posts)
-bio: A software professional seeking for continuous improvement. Obsessed with test automation and sustainable development.
+bio: A software professional seeking for simple solutions to complex problems.
 
 interests:
 - Modern Agile, Lean, DevOps
@@ -61,10 +61,13 @@ user_groups:
 - Visitors
 ---
 
-Hi! My name is Arho Huttunen, and I live in Finland. I am a software engineer with over 20 years of experience.
-During my career, I have trained and mentored many people, and I feel really passionate about it.
+Hi! My name is Arho Huttunen. I am an experienced software developer living in Finland.
 
-I believe that becoming a better software engineer is a life-long journey. I want to keep doing what I enjoy and
-teach people how to succeed in that journey.
+I believe that simplicity is the key to solving problems. I want to find simple solutions to complex problems. But not only that, I also want to turn complex problems into simple problems.
 
-I am really excited about writing tests and test automation. I am also very interested in software architectures that adapt to change and make your code maintainable.
+> Make the change easy. Then make the easy change.
+> -- <cite>Kent Beck</cite>
+
+That can be hard. Really hard. We often struggle because our minds are set to work harder on a solution to a complex problem. We miss out on the easy solution because we don't see how to change the problem.
+
+I coach and mentor other software developers to excel at their jobs. I've been doing that for a long time and love to see a spark of inspiration in their minds.
