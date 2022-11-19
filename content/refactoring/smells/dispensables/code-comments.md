@@ -87,7 +87,7 @@ At first the benefits of removing comments might not worth the while. However, t
 - Complex solutions are broken down to simpler ones.
 - Instead of making assumptions, you are making programming errors visible through assertions.
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="fr" dir="ltr">Code comments <a href="https://t.co/2KDRdfFE9u">pic.twitter.com/2KDRdfFE9u</a></p>&mdash; Michael Koziarski (@nzkoz) <a href="https://twitter.com/nzkoz/status/538892801941848064?ref_src=twsrc%5Etfw">November 30, 2014</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{< tweet user="nzkoz" id="538892801941848064" >}}
 
 ## Exceptions
 
