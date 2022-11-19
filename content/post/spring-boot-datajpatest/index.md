@@ -10,6 +10,7 @@ tags:
   - Spring Boot
   - Spring Data JPA
   - Integration testing
+featured: true
 image:
   focal_point: center
   preview_only: true

@@ -9,7 +9,6 @@ tags:
   - JUnit 5
   - JUnit 4
   - Migration guide
-featured: true
 image:
   focal_point: center
 ---
