@@ -15,6 +15,7 @@ cascade:
   - _target:
       path: /post/**
     commentable: true
+    newsletter: true # custom option -Arho
 
 ############################
 ## LANGUAGE

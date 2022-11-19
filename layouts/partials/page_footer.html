@@ -1,6 +1,8 @@
 {{ partial "page_edit" . }}
 {{ partial "tags" . }}
-{{ partial "newsletter" . }}
+{{ if .Params.newsletter }}
+  {{ partial "newsletter" . }}
+{{ end}}
 {{ partial "components/page_sharer" . }}
 {{ partial "page_author" . }}
 {{ partial "comments" . }}
