@@ -17,15 +17,13 @@ image:
 
 Security plays a major role in software. Eventually, everyone needs to add security to their project. In this article, we look at how to test authentication and authorization of Spring Boot applications. We will cover both MVC servlet applications and reactive WebFlux applications.
 
+Spring Security integrates well with the Spring Web MVC and Spring WebFlux frameworks. It also has a comprehensive integration with Spring MVC Test and Spring `WebTestClient`.
+
 {{< toc >}}
 
 Also, if you are interested in a complete course on Spring Boot testing, check out [Testing Spring Boot Applications Masterclass](https://transactions.sendowl.com/stores/13745/226726) by Philip Riecks. You can support me by buying through that link because I get a share.
 
-## Testing Spring MVC Applications With Security
-
-Spring Security integrates well with the Spring Web MVC framework. It also has a comprehensive integration with Spring MVC Test.
-
-### Example Spring MVC Application With Security
+## Secure a Spring MVC Application
 
 Let's start with a simple application that manages customers. We want to create, get, and delete customers.
 
@@ -84,51 +82,36 @@ Now, to secure endpoints, we can use the `@PreAuthorized` annotation to enable m
 
 From the testing perspective, it doesn't matter much how the security configuration has been setup. For the sake of simplicity, we will keep the example configuration short.
 
-### Spring Security With @WebMvcTest
+## Set Up @WebMvcTest With Security
 
-#### Configure the Test
-To test our controllers in isolation, we can use the Spring Boot Test `@WebMvcTest` test slice. Check out the [Testing Web Controllers With @WebMvcTest](/spring-boot-webmvctest/) for more information.
-
-To test Spring Security, let's start with the endpoints that don't require admin rights.
-
-```java
-@WebMvcTest(CustomerController.class)
-class CustomerControllerTests {
-    @MockBean
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    void getCustomer() throws Exception {
-        when(customerRepository.findById(1L))
-                .thenReturn(Optional.of(new Customer(1L, "John", "Doe")));
-
-        mockMvc.perform(get("/customer/{id}", 1L))
-                .andExpect(status().isOk());
-    }
-}
-```
-
-If we run the application and try to access the endpoint unauthenticated, we can observe that the application denies access. However, the test passes. What is the problem in the test then?
+To test our controllers in isolation, we can use the Spring Boot Test `@WebMvcTest` test slice.
 
 Using `@WebMvcTest` loads beans needed for the controller, but it doesn't know which other configuration beans to load. We have to tell Spring to load the security configuration by using the `@Import(SecurityConfiguration.class)` annotation.
+
 
 ```java
 @WebMvcTest(CustomerController.class)
 @Import(SecurityConfiguration.class)
+class CustomerControllerTests {
+    // ...
+}
 ```
 
-Now running the test results into 401 Unauthorized, so the request lacks authentication. This is the same HTTP status code that the running application gives us.
+{{% callout warning %}}
+If running the application denies access to an endpoint but our tests are not doing the same, it’s likely that we forgot the security configuration import.
 
-```text
-Status expected:<200> but was:<401>
-Expected :200
-Actual   :401
-```
+This can be hard to spot unless we have tests that test for a forbidden or unauthorized status code.
+{{% /callout %}}
 
-#### Mock Authentication
+{{% callout note %}}
+**Additional reading:**
+
+:pencil2: [Testing Web Controllers With @WebMvcTest](/spring-boot-webmvctest/)
+{{% /callout %}}
+
+### Run the Test As a User
+
+To test Spring Security, let's start with the endpoints that don't require admin rights.
 
 To run the test as a user, we can use the `@WithMockUser` annotation to provide fake authentication for the user.
 
@@ -136,13 +119,19 @@ To run the test as a user, we can use the `@WithMockUser` annotation to provide 
     @Test
     @WithMockUser
     void getCustomer() throws Exception {
-        // ...
+        when(customerRepository.findById(1L))
+                .thenReturn(Optional.of(new Customer(1L, "John", "Doe")));
+
+        mockMvc.perform(get("/customer/{id}", 1L))
+                .andExpect(status().isOk());
     }
 ```
 
 This will make the user authenticated, and the test will pass.
 
-To make sure that our security configuration is working, we can also add a test to verify the response is 401 Unauthorized if we haven't authenticated. We can use the `@WithAnonymousUser` annotation, which is optional but emphasizes the fact it's an unauthenticated user.
+To make sure that our security configuration is working, we can also add a test to verify the response is _401 Unauthorized_ if we haven't authenticated.
+
+We can use the `@WithAnonymousUser` annotation, which is optional but emphasizes the fact it's an unauthenticated user.
 
 ```java
     @Test
@@ -153,7 +142,28 @@ To make sure that our security configuration is working, we can also add a test 
     }
 ```
 
-If we use `@WithMockUser` with an endpoint that requires more permissions, we will get 403 Forbidden. This means the authenticated user was not authorized to access the resource. We can add the required roles to the `@WithMockUser` annotation.
+In addition to verifying authentication, we can also verify that the response is _403 Forbidden_ if the user is not authorized to access the resource.
+
+```java
+    @Test
+    @WithMockUser
+    void cannotCreateCustomerIfNotAnAdmin() throws Exception {
+        mockMvc.perform(post("/customer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"firstName\": \"John\", \"lastName\": \"Doe\"}")
+                        .with(csrf())
+                )
+                .andExpect(status().isForbidden());
+    }
+```
+
+We can further customize the user and add roles with the `@WithMockUser` annotation. For example, we could make the user an administrator with `@WithMockUser(roles = "ADMIN")`.
+
+### Enable CSRF Token
+
+Spring Security enables CSRF protection by default, which means that we need to add a valid CSRF token to non-safe HTTP methods. These methods include `POST`, `PUT` and `DELETE`, or all the methods that are not read-only.
+
+We can provide a CSRF token with a request post processor.
 
 ```java
     @Test
@@ -164,47 +174,17 @@ If we use `@WithMockUser` with an endpoint that requires more permissions, we wi
         mockMvc.perform(post("/customer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"firstName\": \"John\", \"lastName\": \"Doe\"}")
+                        .with(csrf())
                 )
                 .andExpect(status().isCreated());
     }
 ```
 
-Running the test, we are still getting 403 Forbidden. It's not obvious what is wrong. What is happening?
+It's possible to add a non-valid CSRF token with `csrf().useInvalidToken()` but it's not useful unless you are doing a more complex configuration.
 
-#### Enable CSRF Token
+### Run As a User Without Annotations
 
-To debug Spring security issues, we can enable security debug logging to see what happens.
-
-```text
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
-```
-
-After enabling security logging, we can see the reason. Spring Security enables CSRF protection by default and the request is missing the CSRF token.
-
-```text
-o.s.security.web.csrf.CsrfFilter : Invalid CSRF token found for http://localhost/customer
-```
-
-One could disable CSRF for tests, but it's not a great option. We can provide a CSRF token with a request post processor instead.
-
-```java
-        mockMvc.perform(post("/customer")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\": \"John\", \"lastName\": \"Doe\"}")
-                        .with(csrf())
-                )
-                .andExpect(status().isCreated());
-```
-
-Now we can see that the test passes.
-
-#### Use Request Post Processors
-
-The `@WithMockUser` annotation is handy, but we don't like annotations, we can use other request post processors instead.
+The `@WithMockUser` annotation is handy, but if we don't like annotations, we can use other request post processors instead.
 
 ```java
     @Test
@@ -230,11 +210,11 @@ To verify unauthorized status, we can add an `anonymous()` post processor. Using
     }
 ```
 
-It’s not complicated to cover the different cases. The level of verification we want depends on how complex our security configuration is. Since this is a pretty vital part of the application, it is good to test it throughly.
+There are multiple other post processors which can be found from `SecurityMockMvcRequestPostProcessors`. For example, we can test HTTP basic authentication, OAuth 2.0 Login, or JWT authentication.
 
-### Spring Security and MockMvc in @SpringBootTest
+## Set Up MockMvc in @SpringBootTest With Security
 
-If we want to test a larger slice of the application with `@SpringBootTest`, we have to set up the `MockMvc` for the tests. We could use `@AutoconfigureMockMvc` annotation here instead, but it's good to know how to initialize `MockMvc` manually.
+If we want to test a larger slice of the application with `@SpringBootTest`, we have to set up the `MockMvc` for the tests.
 
 ```java
 @SpringBootTest
@@ -254,41 +234,24 @@ class CustomerMockEnvTests {
 }
 ```
 
-The important part here is to add `MockMvcConfigurer.springSecurity()` to the configuration. The problem with the `@AutoconfigureMockMvc` annotation is that it could mess up with the Spring Boot application context test caching.
+The important part here is to add `MockMvcConfigurer.springSecurity()` to the configuration.
 
-Once `MockMvc` has been setup, there is nothing different in using it compared to testing with `@WebMvcTest`.
+We could use `@AutoconfigureMockMvc` annotation here instead, but it's good to know how to initialize `MockMvc` manually. The problem with the `@AutoconfigureMockMvc` annotation is that it could mess up with the Spring Boot application context test caching.
 
-### Spring Security and MockMvc WebTestClient in @SpringBootTest
+Once `MockMvc` has been setup, there is nothing different in using it compared to testing with `@WebMvcTest`. We can also use the `@WithMockUser` annotations.
 
-What about if we'd like to write end-to-end tests for the application? Since the test will start the application in another process, one option is to use the `WebTestClient` or to make requests to the application. There is one catch though: we cannot auto-wire the `WebTestClient` bean directly in the test.
+{{% callout note %}}
+**Additional reading:**
 
-```java
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CustomerServerEnvTests {
-    @Autowired
-    private WebTestClient webClient;
+:pencil2: [Spring Boot Integration Testing With @SpringBootTest
+](/spring-boot-integration-testing/)
+{{% /callout %}}
 
-    @Test
-    void createCustomer() {
-        webClient.mutateWith(csrf()).post().uri("/customer")
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue("{\"firstName\": \"John\", \"lastName\": \"Doe\"}")
-                .exchange()
-                .expectStatus().isCreated();
-    }
-}
+## Set Up MockMvc WebTestClient in @SpringBootTest With Security
 
-```
+What about if we'd like to write end-to-end tests for the application? Since the test will start the application in another process, one option is to use the `WebTestClient` to make requests to the application.
 
-The test will fail with an error as soon as we try to call `mutateWith(csrf())` to add the CSRF token.
-
-```text
-Cannot invoke "org.springframework.web.server.adapter.WebHttpHandlerBuilder.filters(java.util.function.Consumer)" because "httpHandlerBuilder" is null
-```
-
-This is because they originally designed `WebTestClient`  for testing reactive Spring applications and [do not support this yet](https://github.com/spring-projects/spring-security/issues/10841#issuecomment-1048099312).
-
-There is a workaround for this if we create the `WebTestClient` manually using `MockMvcWebTestClient`. The setup is pretty similar to the `MockMvc` setup.
+There is one catch though: we cannot auto-wire the `WebTestClient` bean directly in the test. We have to configure the client manually and use a workaround.
 
 ```java
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -306,23 +269,26 @@ public class CustomerServerEnvTests {
                 .configureClient()
                 .build();
     }
-```
 
-By adding a `defaultRequest()` we can add the CSRF token to all requests.
-
-With this setup, we can use the `@WithMockUser` annotation again.
-
-```java
     @Test
-    @WithMockUser(roles = "ADMIN")
     void createCustomer() {
-        webClient.post().uri("/customer")
+        webClient.mutateWith(csrf()).post().uri("/customer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{\"firstName\": \"John\", \"lastName\": \"Doe\"}")
                 .exchange()
                 .expectStatus().isCreated();
     }
+}
 ```
+
+This is because they originally designed `WebTestClient`  for testing reactive Spring applications and [do not support this yet](https://github.com/spring-projects/spring-security/issues/10841#issuecomment-1048099312).
+
+{{% callout warning %}}
+If we try to auto-wire `WebTestClient`, and try to call `mutateWith(csrf())`, tests will fail with a cryptic error.
+
+`Cannot invoke "org.springframework.web.server.adapter.WebHttpHandlerBuilder.filters(java.util.function.Consumer)" because "httpHandlerBuilder" is null`
+{{% /callout %}}
+
 
 Since it's an end to end test, instead of mocking the authentication, we might want to provide the authentication headers instead.
 
@@ -338,11 +304,9 @@ Since it's an end to end test, instead of mocking the authentication, we might w
     }
 ```
 
-## Testing WebFlux Spring Applications With Security
+We can even provide a bearer token with the same mechanism. However, creating tokens is cumbersome, and it's better to focus testing authorization and not representing bearer tokens.
 
-Spring Security integrates well with the Spring WebFlux framework. It also has a comprehensive integration with Spring `WebTestClient`.
-
-### Example Spring WebFlux Application With Security
+## Secure a Spring WebFlux Application
 
 Let's start with the previous example application and covert that to a reactive application.
 
@@ -385,7 +349,7 @@ public class SecurityConfiguration {
 
 Once the security configuration is in place, the endpoints are now secured.
 
-### Spring Security With @WebFluxTest
+## Set Up @WebFluxTest With Security
 
 To test our reactive controllers in isolation, we can use the Spring Boot Test `@WebFluxText` test slice. We can also use `WebTestClient` directly in these tests since it has been designed to work with reactive applications.
 
@@ -411,7 +375,7 @@ class CustomerControllerTests {
     }
 ```
 
-For any endpoints who require the CSRF token, we need to add it.
+For any endpoints who require the CSRF token, we need to add it. We do this by mutating the `WebTestClient` with mutators coming from `SecurityMockServerConfigurers`.
 
 ```java
     @Test
@@ -429,7 +393,7 @@ For any endpoints who require the CSRF token, we need to add it.
     }
 ```
 
-Again, if we don't want to use the `@WithMockUser` annotation, we can mutate the client with methods coming from `SecurityMockServerConfigurers`.
+Again, if we don't want to use the `@WithMockUser` annotation, we can configure the client further with mutators that provide authentication.
 
 ```java
     @Test
@@ -444,9 +408,11 @@ Again, if we don't want to use the `@WithMockUser` annotation, we can mutate the
     }
 ```
 
-### Spring WebFlux Security With @SpringBooTest
+In addition to providing a mock user we can use e.g. `mockJwt()` or `mockOAuth2Login()`.
 
-Moving on to the `@SpringBootTest`, the `WebTestClient` bean is not available by default. We could add the `@AutoconfigureWebTestClient` annotation, but it's good to know how to set up the client manually.
+## Set Up WebFlux WebTestClient in @SpringBooTest With Security
+
+Moving on to end-to-end tests and the `@SpringBootTest`, the `WebTestClient` bean is not available by default. The client needs to be configured manually.
 
 ```java
 @SpringBootTest
@@ -466,16 +432,36 @@ public class CustomerControllerEndToEndTests {
 }
 ```
 
-The problem with the `@AutoconfigureWebTestClient` annotation is that it could mess up with the Spring Boot application context test caching.
+We could again do the same by adding the `@AutoconfigureWebTestClient` annotation, but it suffers from the same problems with context caching as mentioned previously.
 
 Here, it doesn't matter if we are running the test in a mock environment or a server environment. `WebTestClient` is configured the same way in both in a reactive application.
 
 Once `WebTestClient` has been setup there is nothing different in using it compared to testing with `@WebFluxTest`. We can either use the `@WithMockUser` or mutate the client with mock security from `SecurityMockServerConfigurers`.
+
+## Enable Debug Logs For Troubleshooting
+
+Sometimes when our security tests fail, it can be daunting to find out what is wrong. To debug Spring security issues, we can enable security debug logging to see what happens.
+
+```text
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+```
+
+For example, if we forget the CSRF token, it's not obvious unless we use debug logging. After enabling debug security logging, we can figure out the reason for failure.
+
+```text
+o.s.security.web.csrf.CsrfFilter : Invalid CSRF token found for http://localhost/customer
+```
 
 ## Summary
 
 Spring Security integrates well with the Spring Web MVC and Spring WebFlux frameworks. It also has comprehensive integration with `MockMvc` and `WebTestClient`.
 
 We can fake the authentication using an annotation or a method-based approach. It’s also possible to provide different roles for testing authorization.
+
+It’s not complicated to cover the different cases. The level of verification we want depends on how complex our security configuration is. Since this is a pretty vital part of the application, it is good to test it throughly.
 
 You can find the example code for this article on GitHub [for the MVC application](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-security-testing) and [for the WebFlux application](https://github.com/arhohuttunen/spring-boot-test-examples/tree/main/spring-webflux-security-testing).
