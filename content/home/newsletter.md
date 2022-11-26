@@ -9,11 +9,11 @@ design:
 ---
 
 <div style="text-align: center">
-<h2>Newsletter</h2>
+<h2>Clean Code Corner</h2>
 
-Join the curious crowd and get exclusive tips on how to become a better software developer.
+Short, simple, and actionable tips on developing quality software.
 
 <script async data-uid="c5699c15a9" src="https://arhohuttunen.ck.page/c5699c15a9/index.js"></script>
 
-<small>No spam, sales, or ads. Unsubscribe at any time.</small>
+<small>Join for free. No spam. Unsubscribe at any time.</small>
 </div>
