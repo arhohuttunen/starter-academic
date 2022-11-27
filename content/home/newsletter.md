@@ -1,7 +1,7 @@
 ---
 widget: blank
 headless: true
-weight: 15
+weight: 20
 title:
 subtitle:
 design:

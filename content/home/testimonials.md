@@ -3,8 +3,7 @@ widget: testimonials
 headless: true  # This file represents a page section.
 
 title: Wall of Love
-subtitle: Check out what my YouTube channel subscribers have to say
-weight: 10
+weight: 30
 
 content:
   items:
