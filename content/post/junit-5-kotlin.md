@@ -13,7 +13,7 @@ tags:
 image:
   focal_point: center
   preview_only: true
-  filename: post/junit-5-kotlin/featured.png
+  filename: edited/junit-5-kotlin.png
 ---
 
 {{< youtube 94KTm9b00VM >}}

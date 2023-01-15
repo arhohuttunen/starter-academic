@@ -10,8 +10,8 @@ tags:
   - Pair programming
   - Mob programming
 image:
-  focal_point: bottom
-  preview_only: true
+  caption: Photo by [Annie Spratt](https://unsplash.com/@anniespratt) on Unsplash
+  filename: stock/sitting-people-beside-table-inside-room.jpg
 ---
 
 Developers hate interruptions. They hate them so much that they write blog posts about it. This hate builds on the premise that we need uninterrupted periods of individual focused time. However, the way we build software is becoming more and more collaborative. This creates a tension between the need for individual focus and team contributions.

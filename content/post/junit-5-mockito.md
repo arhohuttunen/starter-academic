@@ -13,7 +13,7 @@ featured: true
 image:
   focal_point: top
   preview_only: true
-  filename: post/junit-5-mockito/featured.png
+  filename: edited/junit-5-mockito.png
 ---
 
 {{< youtube p7_cTAF39A8 >}}

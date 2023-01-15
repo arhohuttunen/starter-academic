@@ -10,7 +10,7 @@ tags:
   - Code review
   - Static analysis
 image:
-  filename: post/code-quality-checks/featured.jpg
+  filename: stock/detective-smoking-pipe.jpg
 ---
 
 Code quality is a weak spot in nearly every software project. This is especially true for legacy projects. What once was elegant, over time became rougher and finally incomprehensible.

@@ -11,7 +11,7 @@ tags:
   - Lean
   - Agile
 image:
-  filename: post/book-review-accelerate/featured.jpg
+  filename: stock/devops-matrix-cubics.jpg
 ---
 
 [Accelerate: The Science of Lean Software and DevOps](https://amzn.to/38gZPKK) by Nicole Forsgren, Jez Humble, and Gene Kim discusses the factors that impact software delivery performance and describes the capabilities and practices that result in higher levels of throughput, stability, and quality.

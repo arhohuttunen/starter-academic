@@ -12,7 +12,8 @@ tags:
   - Maintainability
   - Readability
 image:
-  filename: post/test-data-builders/featured.jpg
+  caption: Photo by [Jeriden Villegas](https://unsplash.com/@jeriden94) on [Unsplash]
+  filename: stock/man-in-vest-wearing-helmet-holding-power-tool.jpg
 ---
 
 In this article, we will learn how to write test data builders that remove duplication in constructing objects and increase the expressiveness of the test code. We will also learn how to use Lombok to reduce boilerplate code around the builders.

@@ -9,7 +9,7 @@ categories:
 tags:
   - JUnit 5
 image:
-  filename: post/junit-5-assertions/featured.png
+  filename: edited/junit-5-checklist-with-computer.png
 ---
 
 ## Overview

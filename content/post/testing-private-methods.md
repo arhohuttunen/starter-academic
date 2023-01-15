@@ -10,7 +10,7 @@ tags:
   - Clean code
 image:
   focal_point: topleft
-  filename: post/testing-private-methods/featured.jpg
+  filename: stock/man-using-laptop.jpg
 ---
 
 > What is the best way to test private methods? Should I use some library or use reflection?

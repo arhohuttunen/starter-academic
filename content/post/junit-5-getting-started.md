@@ -9,7 +9,7 @@ categories:
 tags:
   - JUnit 5
 image:
-  filename: post/junit-5-getting-started/featured.png
+  filename: edited/junit-5-handwriting-text-get-started.png
 ---
 
 In this article, we will learn how to write and run a simple JUnit 5 test. We will learn how to setup preconditions, interact with the object we want to test, and verify that it behaves like we expect.

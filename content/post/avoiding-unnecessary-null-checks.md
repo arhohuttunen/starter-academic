@@ -10,7 +10,7 @@ tags:
   - Clean code
   - Anti pattern
 image:
-  filename: post/avoiding-unnecessary-null-checks/featured.jpg
+  filename: stock/headless-pensive-businessman.jpg
 ---
 
 The most common reason for writing null checks is that you run into a null pointer exception. The second most common reason is that you happened to think about it at some certain case.

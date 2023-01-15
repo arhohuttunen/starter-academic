@@ -8,10 +8,10 @@ summary: Seven tips to take control of your time, reduce distractions, allocate 
 categories:
   - Productivity
 image:
-  caption: Photo by [krisna iv](https://unsplash.com/@finesite) on Unsplash
+  caption: Photo by [kris](https://unsplash.com/@finesite) on Unsplash
   focal_point: bottom
   preview_only: true
-  filename: post/time-management-for-developer-productivity/featured.jpg
+  filename: stock/productivity-printed-book.jpg
 ---
 
 {{< youtube 59xEI24uK6M >}}

@@ -9,7 +9,7 @@ tags:
   - Refactoring
   - Clean code
 image:
-  filename: post/prevent-legacy-code-from-emerging/featured.jpg
+  filename: stock/broken-windows-in-an-abandoned-house.jpg
 ---
 
 Every software developer has faced the situation. You have been assigned a task to add or change a feature. You know nothing about the particular feature but it does not sound too complex.

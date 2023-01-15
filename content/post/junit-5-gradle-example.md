@@ -11,7 +11,7 @@ tags:
   - JUnit 5
   - Gradle
 image:
-  filename: post/junit-5-gradle-example/featured.png
+  filename: edited/junit-5-gradle.png
 ---
 
 In this JUnit 5 Gradle example, we will learn how to get the required dependencies for writing JUnit 5 tests with Gradle. Also, we will learn how to configure the JUnit Gradle plugin to run the tests.

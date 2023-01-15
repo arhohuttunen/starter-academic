@@ -12,7 +12,8 @@ tags:
   - Readability
 image:
   focal_point: top
-  filename: post/test-readability/featured.jpg
+  caption: Photo by [Thought Catalog](https://unsplash.com/@thoughtcatalog) on Unsplash
+  filename: stock/person-reading-book-on-brown-wooden-table.jpg
 ---
 
 In this article, we will learn different ways to improve test readability. Being able to understand what a test does, increases the maintainability of the test.

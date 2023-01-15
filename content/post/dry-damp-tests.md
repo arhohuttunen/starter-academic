@@ -13,7 +13,7 @@ tags:
 image:
   focal_point: bottom
   preview_only: true
-  filename: post/dry-damp-tests/featured.jpg
+  filename: stock/young-bearded-man-standing-with-yellow-umbrella-in-hand.jpg
 ---
 
 {{< youtube cD4ThqhnAp0 >}}

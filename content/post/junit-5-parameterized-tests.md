@@ -12,7 +12,7 @@ featured: true
 image:
   focal_point: center
   preview_only: true
-  filename: post/junit-5-parameterized-tests/featured.png
+  filename: edited/junit-5-checklist-clipboard.png
 ---
 
 In this tutorial we will learn how to write JUnit 5 parameterized tests. The tutorial is structured so that it also answers most asked questions about parameterized tests.

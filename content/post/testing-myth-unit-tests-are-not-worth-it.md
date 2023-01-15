@@ -8,7 +8,7 @@ categories:
 tags:
   - Clean code
 image:
-  filename: post/testing-myth-unit-tests-are-not-worth-it/featured.jpg
+  filename: stock/home-on-building-blocks-surrounded-by-ruins-of-house-that-collapsed.jpg
 ---
 
 There are a lot of developers and managers who think that writing unit tests is just extra work. Suggesting that we should write more unit tests seems to receive ill responses. I think there are many people out there who still don't understand the purpose of unit testing.

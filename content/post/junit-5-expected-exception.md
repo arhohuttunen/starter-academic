@@ -9,7 +9,7 @@ categories:
 tags:
   - JUnit 5
 image:
-  filename: post/junit-5-expected-exception/featured.png
+  filename: edited/junit-5-laptop-with-service-error.png
 ---
 
 In this article, we will learn how to assert an exception is thrown using JUnit 5. In addition, we will learn how to check the error message of the thrown exception.

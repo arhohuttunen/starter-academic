@@ -9,7 +9,7 @@ tags:
   - Clean code
   - Anti pattern
 image:
-  filename: post/misconceptions-about-code-reuse/featured.jpg
+  filename: stock/mature-caucasian-man-scratching-head.jpg
 ---
 
 We all have been taught that reusable code is good. We all know why we should do it but there are some misconceptions about how to do it.

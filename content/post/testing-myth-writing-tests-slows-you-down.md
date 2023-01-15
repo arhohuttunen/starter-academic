@@ -8,7 +8,7 @@ categories:
 tags:
   - Clean code
 image:
-  filename: post/testing-myth-writing-tests-slows-you-down/featured.jpg
+  filename: stock/snail-race.jpg
 ---
 
 Let's assume we have decided to increase the stability of our software. So we decide to write tests for our code. The problem is that the customer is requesting new features and deadlines are approaching. Testing will slow us down. We can skip them now and write them later, right?

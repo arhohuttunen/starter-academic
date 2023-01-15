@@ -12,7 +12,7 @@ tags:
 image:
   focal_point: top
 image:
-  filename: post/book-review-culture-code/featured.jpg
+  filename: stock/team-of-ants-constructing-bridge.jpg
 ---
 
 [The Culture Code: The Secrets of Highly Successful Groups](https://amzn.to/3rjCzmK) by Daniel Coyle is a mixture of stories about successful organizations backed up with cutting-edge science and complemented with practical ideas for action. It identifies the critical factors behind team cohesion and determines strategies that encourage collaboration and build trust.

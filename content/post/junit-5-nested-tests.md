@@ -10,7 +10,7 @@ tags:
   - JUnit 5
 image:
   preview_only: true
-  filename: post/junit-5-nested-tests/featured.png
+  filename: edited/junit-5-brackets.png
 ---
 
 {{< youtube TsCew_Oq6uE >}}

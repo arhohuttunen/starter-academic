@@ -8,7 +8,7 @@ categories:
   - Productivity
 image:
   caption: Photo by [Matthew Fournier](https://unsplash.com/@mattyfours) on Unsplash
-  filename: post/increase-your-programming-productivity/featured.jpg
+  filename: stock/black-laptop-displaying-source-code.jpg
 ---
 
 Programming can be quite repetitive at times. We end up typing the same commands over and over, or we copy paste-stuff from one place to another.

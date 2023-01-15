@@ -9,7 +9,7 @@ categories:
 tags:
   - JUnit 5
 image:
-  filename: post/junit-5-test-lifecycle/featured.png
+  filename: edited/junit-5-chart-diagram.png
 ---
 
 In this tutorial, we will learn how to run code before and after each test or all tests in the test class. We will also see what is the execution order when using nested tests or extensions.
