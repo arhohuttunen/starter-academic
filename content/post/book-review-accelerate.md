@@ -5,7 +5,7 @@ date: 2019-03-19
 authors:
   - arhohuttunen
 categories:
-  - Book Review
+  - Book Reviews
 tags:
   - DevOps
   - Lean

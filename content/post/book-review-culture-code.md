@@ -4,7 +4,7 @@ date: 2019-03-24
 authors:
   - arhohuttunen
 categories:
-  - Book Review
+  - Book Reviews
 tags:
   - Agile
   - Culture

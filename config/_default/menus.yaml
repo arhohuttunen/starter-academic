@@ -17,7 +17,7 @@ main:
     parent: tutorials
     url: '/spring-boot-testing-tutorial'
   - name: Book Reviews
-    url: '/category/book-review'
+    url: '/category/book-reviews'
     weight: 30
   - name: About
     url: '/about'
