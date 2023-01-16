@@ -8,17 +8,11 @@ categories:
   - Spring Boot
 tags:
   - testing
-image:
-  focal_point: center
-  preview_only: true
-
 ---
 
 In this article, we look at how to write tests for JSON serialization and deserialization.
 
 First, we will discuss why we might want to test serialization and deserialization separately. Then, we will look at how to write such tests.
-
-If you prefer learning from videos, make sure to check out the following video:
 
 {{< youtube NQHQ3YVMWaM >}}
 <br/>

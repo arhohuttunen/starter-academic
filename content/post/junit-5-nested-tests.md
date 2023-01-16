@@ -9,16 +9,15 @@ categories:
 tags:
   - testing
 image:
-  preview_only: true
   filename: edited/junit-5-brackets.png
 ---
-
-<lite-youtube videoid="TsCew_Oq6uE"></lite-youtube>
-<br/>
 
 In this tutorial, we will learn how to write JUnit 5 nested tests. We will learn how to provide a hierarchical structure to the tests that describe relationships between the tests.
 
 This article is part of the [JUnit 5 Tutorial](/junit-5-tutorial).
+
+{{< youtube TsCew_Oq6uE >}}
+<br/>
 
 ## Tests Without Nests
 

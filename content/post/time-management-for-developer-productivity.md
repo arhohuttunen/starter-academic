@@ -10,12 +10,8 @@ categories:
 image:
   caption: Photo by [kris](https://unsplash.com/@finesite) on Unsplash
   focal_point: bottom
-  preview_only: true
   filename: stock/productivity-printed-book.jpg
 ---
-
-<lite-youtube videoid="59xEI24uK6M"></lite-youtube>
-<br/>
 
 If you often feel like there’s too much to do and too little time to do it, you are definitely not alone. We are constantly interrupted, and we get distracted from our productive work.
 
@@ -28,6 +24,9 @@ Our routines, or the lack of them, or the capacity to **work proactively rather 
 In this post, we will look at tips that **reduce distractions and the inability to concentrate on our work**. We will also see how to better plan ahead and find time to do our most important work.
 
 This post is mainly targeted at developers, but I'm sure others will find value in it as well.
+
+{{< youtube 59xEI24uK6M >}}
+<br/>
 
 ## :no_good_man: Learn to say no
 

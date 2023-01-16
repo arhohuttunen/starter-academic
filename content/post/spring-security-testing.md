@@ -8,9 +8,6 @@ categories:
   - Spring Boot
 tags:
   - testing
-image:
-  focal_point: center
-  preview_only: true
 ---
 
 Security plays a major role in software. Eventually, everyone needs to add security to their project. In this article, we look at how to test authentication and authorization of Spring Boot applications. We will cover both MVC servlet applications and reactive WebFlux applications.

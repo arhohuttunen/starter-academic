@@ -11,7 +11,6 @@ tags:
 featured: true
 image:
   focal_point: center
-  preview_only: true
   filename: edited/junit-5-checklist-clipboard.png
 ---
 
@@ -19,9 +18,7 @@ In this tutorial we will learn how to write JUnit 5 parameterized tests. The tut
 
 This article is part of the [JUnit 5 Tutorial](/junit-5-tutorial).
 
-If you prefer learning from videos, make sure to check out the following video:
-
-<lite-youtube videoid="0xSCbTYAiF0"></lite-youtube>
+{{< youtube 0xSCbTYAiF0 >}}
 <br/>
 
 {{< toc >}}

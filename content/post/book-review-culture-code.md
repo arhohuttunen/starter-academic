@@ -9,7 +9,6 @@ tags:
   - agile
 image:
   focal_point: top
-image:
   filename: stock/team-of-ants-constructing-bridge.jpg
 ---
 

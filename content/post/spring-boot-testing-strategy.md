@@ -8,8 +8,6 @@ categories:
   - Spring Boot
 tags:
   - testing
-image:
-  focal_point: center
 ---
 
 In this article, we look at an overall Spring Boot testing strategy and how to organize the application for testability.

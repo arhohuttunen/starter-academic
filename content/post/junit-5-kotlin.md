@@ -11,16 +11,15 @@ tags:
   - testing
 image:
   focal_point: center
-  preview_only: true
   filename: edited/junit-5-kotlin.png
 ---
-
-<lite-youtube videoid="94KTm9b00VM"></lite-youtube>
-<br/>
 
 In this article, we will learn the differences between writing JUnit 5 tests in Kotlin and Java. We will also learn how to configure JUnit 5 in our build script using the Gradle Kotlin DSL.
 
 This article is part of the [JUnit 5 Tutorial](/junit-5-tutorial).
+
+{{< youtube 94KTm9b00VM >}}
+<br/>
 
 {{% toc %}}
 

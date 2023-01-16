@@ -9,18 +9,13 @@ categories:
 tags:
   - testing
 featured: true
-image:
-  focal_point: center
-  preview_only: true
 ---
 
 In this article, we look at how to write tests for WebClient REST calls.
 
 First, we will discuss what responsibilities a WebClient has. Then, we will look at what kind of tests we should write to test those responsibilities and how.
 
-If you prefer learning from videos, make sure to check out the following video:
-
-<lite-youtube videoid="GBKY8QyfNDk"></lite-youtube>
+{{< youtube GBKY8QyfNDk >}}
 <br/>
 
 ## What is Spring WebClient?

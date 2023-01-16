@@ -9,18 +9,13 @@ categories:
 tags:
   - testing
 featured: true
-image:
-  focal_point: center
-  preview_only: true
 ---
 
 In this article, we look at how to write tests for the persistence layer.
 
 First, we will discuss what we should be testing in the persistence layer. Then, we will look at how to deal with creating the database schema and test data for the tests.
 
-If you prefer learning from videos, make sure to check out the following video:
-
-<lite-youtube videoid="wRpxKDi79mk"></lite-youtube>
+{{< youtube wRpxKDi79mk >}}
 <br/>
 
 ## What To Test?

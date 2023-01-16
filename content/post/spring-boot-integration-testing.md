@@ -8,18 +8,13 @@ categories:
   - Spring Boot
 tags:
   - testing
-image:
-  focal_point: center
-  preview_only: true
 ---
 
 In this article, we look at how to write integration tests with `@SpringBootTest`.
 
 First, we will discuss different types of integration tests. Then, we will discover customization options for `@SpringBootTest` and how to write system tests with an embedded web server running.
 
-If you prefer learning from videos, make sure to check out the following video:
-
-<lite-youtube videoid="N6ZaSNhzsGo"></lite-youtube>
+{{< youtube N6ZaSNhzsGo >}}
 <br/>
 
 ## What Is an Integration Test?
