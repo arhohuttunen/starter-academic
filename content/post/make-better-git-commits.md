@@ -4,7 +4,7 @@ date: 2016-01-06
 authors:
   - arhohuttunen
 categories:
-  - Software Craftsmanship
+  - Software Craft
 image:
   filename: stock/personal-computer-showing-development-process.jpg
 ---

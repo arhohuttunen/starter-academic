@@ -5,7 +5,7 @@ authors:
   - arhohuttunen
 summary: What is the best way to test private methods? Should I use some library or use reflection? Can I just make the method public?
 categories:
-  - Software Craftsmanship
+  - Software Craft
 tags:
   - testing
 image:

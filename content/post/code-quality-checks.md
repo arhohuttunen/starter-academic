@@ -4,7 +4,7 @@ date: 2016-06-13
 authors:
   - arhohuttunen
 categories:
-  - Software Craftsmanship
+  - Software Craft
 image:
   filename: stock/detective-smoking-pipe.jpg
 ---

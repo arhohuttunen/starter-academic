@@ -4,7 +4,7 @@ date: 2015-05-22
 authors:
   - arhohuttunen
 categories:
-  - Software Craftsmanship
+  - Software Craft
 image:
   filename: stock/broken-windows-in-an-abandoned-house.jpg
 ---

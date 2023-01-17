@@ -4,7 +4,7 @@ date: 2016-02-01
 authors:
   - arhohuttunen
 categories:
-  - Software Craftsmanship
+  - Software Craft
 tags:
   - testing
 image:

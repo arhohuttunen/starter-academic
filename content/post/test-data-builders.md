@@ -6,7 +6,7 @@ authors:
   - arhohuttunen
 summary: Learn how to use the test data builder pattern to make it easy to create objects for tests. Learn how to reduce boilerplate code with Lombok. 
 categories:
-  - Software Craftsmanship
+  - Software Craft
 tags:
   - testing
 image:

@@ -6,7 +6,7 @@ authors:
   - arhohuttunen
 summary: In this article, we will learn different ways to improve test readability. Tests document how the system should behave. They also act as self-verifying executable specifications.
 categories:
-  - Software Craftsmanship
+  - Software Craft
 tags:
   - testing
 image:

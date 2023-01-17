@@ -4,7 +4,7 @@ date: 2015-09-21
 authors:
   - arhohuttunen
 categories:
-  - Software Craftsmanship
+  - Software Craft
 image:
   filename: stock/headless-pensive-businessman.jpg
 ---

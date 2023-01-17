@@ -4,7 +4,7 @@ date: 2015-06-29
 authors:
   - arhohuttunen
 categories:
-  - Software Craftsmanship
+  - Software Craft
 image:
   filename: stock/mature-caucasian-man-scratching-head.jpg
 ---

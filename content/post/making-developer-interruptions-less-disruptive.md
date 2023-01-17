@@ -5,7 +5,7 @@ authors:
   - arhohuttunen
 summary: Collaborative work and appropriate engineering practices can reduce developer interruptions and make them less disruptive.
 categories:
-  - Software Craftsmanship
+  - Software Craft
 tags:
   - agile
 image:
