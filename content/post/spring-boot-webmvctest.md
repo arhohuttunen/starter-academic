@@ -8,7 +8,6 @@ categories:
   - Spring Boot
 tags:
   - testing
-featured: true
 ---
 
 In this article, we look at how to test Spring Boot MVC controllers. First, we will discuss if unit testing controllers is enough. Then, we will discover what responsibilities the controllers are dealing with and how to test them.

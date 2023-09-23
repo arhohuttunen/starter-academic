@@ -11,6 +11,7 @@ categories:
 image:
   caption: Photo by [Meggyn Pomerleau](https://unsplash.com/@yungserif) on Unsplash
   filename: stock/worker-honeybees-crawling-inside-honeycomb.jpg
+featured: true
 ---
 
 Hexagonal architecture has become a popular architectural pattern for separating business logic from the infrastructure. This separation allows us to delay decisions about technology or easily replace technologies. It also makes it possible to test the business logic in isolation from external systems.

@@ -8,7 +8,6 @@ categories:
   - Spring Boot
 tags:
   - testing
-featured: true
 ---
 
 In this article, we look at how to write tests for the persistence layer.
