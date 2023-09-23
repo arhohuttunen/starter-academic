@@ -4,10 +4,10 @@
 
 <div class="row">
 
-  {{ if or $block.Params.title $block.Params.subtitle }}
+  {{ if or $block.content.title $block.content.subtitle }}
   <div class="col-12 justify-content-center text-center section-heading">
-    {{ with $block.Params.title }}<h1>{{ . | markdownify }}</h1>{{ end }}
-    {{ with $block.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with $block.content.title }}<h1>{{ . | markdownify }}</h1>{{ end }}
+    {{ with $block.content.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
   </div>
   {{ end }}
 
@@ -15,7 +15,7 @@
 
     <div class="row text-center justify-content-center">
       <div class="testimonials card-columns">
-        {{ range $item := $block.Params.content.items }}
+        {{ range $item := $block.content.items }}
         <div class="card">
           <div class="card-body">
             <p class="card-text mb-0 pb-1">
