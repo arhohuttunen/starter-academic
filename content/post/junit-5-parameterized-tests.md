@@ -322,7 +322,7 @@ Consequently, the implementation of that `Person` class in the next example woul
 public class Person {
     private final String name;
 
-    public static fromName(String name) {
+    public static Person fromName(String name) {
         return new Person(name);
     }
 }
